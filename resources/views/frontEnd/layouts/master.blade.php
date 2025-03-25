@@ -7,27 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title> Bor Bou - The Best Matrimony Website in Bangladesh | Register Now! </title>
-    
+
     <!-- Meta Tags for SEO and Open Graph -->
-    <meta name="description" content="Bor Bou - The Best Matrimony Website in Bangladesh | Register Now! Join the Top Online Marriage Media and Find Your Perfect Life Partner." />
+    <meta name="description"
+        content="Bor Bou - The Best Matrimony Website in Bangladesh | Register Now! Join the Top Online Marriage Media and Find Your Perfect Life Partner." />
     <meta name="author" content="borbou">
     <link rel="canonical" href="https://borbou.com.bd" />
     <meta name="robots" content="index, follow">
-    <meta name="keywords" content="Matrimony Website, Marriage Website, Wedding Website, Matrimonial Website, Online Matrimony, Bengali Matrimony, Bangladeshi Matrimony Website, Bangladeshi Matrimonial Website, BorBou, BorBou.com.bd, Matrimony, Matrimonial, Marriage Media, Bangladesh Matrimony, Bride and Groom, বর বউ, বিয়ের ওয়েবসাইট, বিবাহের ওয়েবসাইট, বর বউ চাই, পাত্র পাত্রী চাই, বিধবা পাত্রী চাই, ডিভোর্সি পাত্রী চাই, ইসলামিক বিয়ের ওয়েবসাইট, ম্যাট্রিমনি, পাত্রপাত্রী, ম্যারেজমিডিয়া">
+    <meta name="keywords"
+        content="Matrimony Website, Marriage Website, Wedding Website, Matrimonial Website, Online Matrimony, Bengali Matrimony, Bangladeshi Matrimony Website, Bangladeshi Matrimonial Website, BorBou, BorBou.com.bd, Matrimony, Matrimonial, Marriage Media, Bangladesh Matrimony, Bride and Groom, বর বউ, বিয়ের ওয়েবসাইট, বিবাহের ওয়েবসাইট, বর বউ চাই, পাত্র পাত্রী চাই, বিধবা পাত্রী চাই, ডিভোর্সি পাত্রী চাই, ইসলামিক বিয়ের ওয়েবসাইট, ম্যাট্রিমনি, পাত্রপাত্রী, ম্যারেজমিডিয়া">
     <meta property="og:url" content="https://borbou.com.bd" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Bor Bou - The Best Matrimony Website in Bangladesh | Register Now!" />
-    <meta property="og:description" content="Bor Bou - The Best Matrimony Website in Bangladesh | Register Now! Join the Top Online Marriage Media and Find Your Perfect Life Partner." />
+    <meta property="og:description"
+        content="Bor Bou - The Best Matrimony Website in Bangladesh | Register Now! Join the Top Online Marriage Media and Find Your Perfect Life Partner." />
     <meta property="og:image" content="{{ asset('public/frontEnd') }}/images/og-image.png" />
-    
+
     <!-- Favicon and Icons -->
     <link rel="shortcut icon" href="{{ asset($generalsetting->favicon) }}" />
     <link rel="icon" rel="apple-touch-icon" href="{{ asset('public/frontEnd') }}/images/og-image.png" />
-    
+
     <!-- Fonts and Stylesheets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     @yield('css')
     <link rel="stylesheet" href="{{ asset('public/frontEnd/') }}/css/chosen.css" />
     <link rel="stylesheet" href="{{ asset('public/frontEnd/') }}/css/bootstrap.min.css" />
@@ -48,7 +52,7 @@
     <link rel="stylesheet" href="{{ asset('public/frontEnd/') }}/css/responsive.css?v=2.0.97" />
     <meta name="facebook-domain-verification" content="dk4jtrup3sgo73epggz3kbdauuqrhh" />
 
-     <!-- Facebook and Google Tags -->
+    <!-- Facebook and Google Tags -->
     <script>
         ! function(f, b, e, v, n, t, s) {
             if (f.fbq) return;
@@ -71,8 +75,9 @@
         fbq('init', '882194303609129');
         fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=882194303609129&ev=PageView&noscript=1" /></noscript>
-    
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=882194303609129&ev=PageView&noscript=1" /></noscript>
+
     <!-- Google Analytics and AdSense -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GC5X06ZZP0"></script>
     <script>
@@ -86,84 +91,95 @@
         gtag('config', 'G-GC5X06ZZP0');
     </script>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2119341173001568" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2119341173001568"
+        crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-2119341173001568">
 </head>
 
 <body class="gotop">
-     <!-- bottom navigation part starts -->
+    <!-- bottom navigation part starts -->
     <div class="menu-container">
         <div class="inner">
-            <div class="menu-item {{ Route::is('contact') ? 'active' : '' }} active-red" data-url="{{ route('contact')  }}">
-                <a href="{{ route('contact')  }}">
+            <div class="menu-item {{ Route::is('contact') ? 'active' : '' }} active-red"
+                data-url="{{ route('contact') }}">
+                <a href="{{ route('contact') }}">
                     <i class="fa-solid fa-phone-volume"></i>
                 </a>
             </div>
             <div class="menu-item  active-yellow" id="filterButton">
                 <i class="fa-solid fa-filter"></i>
             </div>
-            
-            <div class="menu-item {{ Route::is('home') ? 'active' : '' }} active-red" data-url="{{ route('home')  }}" id="homeLink">
-                <a href="{{ route('home')  }}">
+
+            <div class="menu-item {{ Route::is('home') ? 'active' : '' }} active-red" data-url="{{ route('home') }}"
+                id="homeLink">
+                <a href="{{ route('home') }}">
                     <i class="fa-solid fa-heart"></i>
                 </a>
             </div>
-            
-            <div class="menu-item {{ Route::is('wishlist') ? 'active' : '' }} active-yellow" data-url="{{ route('wishlist')  }}">
-                <a href="{{ route('wishlist')  }}" class="wishlist-link-button">
+
+            <div class="menu-item {{ Route::is('wishlist') ? 'active' : '' }} active-yellow"
+                data-url="{{ route('wishlist') }}">
+                <a href="{{ route('wishlist') }}" class="wishlist-link-button">
                     <span id="wishCount">@include('frontEnd.layouts.ajax.wishcount')</span>
                     <i class="fa-solid fa-star"></i>
                 </a>
-            </div>        
-            
-            @if(Auth::guard('member')->user())
-            <div class="menu-item {{ Route::is('member.editprofile') ? 'active' : '' }} active-red" data-url="{{ route('member.editprofile')  }}">
-                <a href="{{ route('member.editprofile')  }}">
-                    <i class="fa-solid fa-user"></i>
-                </a>
             </div>
+
+            @if (Auth::guard('member')->user())
+                <div class="menu-item {{ Route::is('member.editprofile') ? 'active' : '' }} active-red"
+                    data-url="{{ route('member.editprofile') }}">
+                    <a href="{{ route('member.editprofile') }}">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                </div>
             @else
-            <div class="menu-item {{ Route::is('member.login') ? 'active' : '' }} active-red" data-url="{{ route('member.login')  }}">
-                <a href="{{ route('member.login')  }}">
-                    <i class="fa-solid fa-user"></i>
-                </a>
-            </div>
+                <div class="menu-item {{ Route::is('member.login') ? 'active' : '' }} active-red"
+                    data-url="{{ route('member.login') }}">
+                    <a href="{{ route('member.login') }}">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                </div>
             @endif
         </div>
         <div class="inner">
-            <div class="menu-item {{ Route::is('contact') ? 'active' : '' }} active-red" data-url="{{ route('contact')  }}">
-                <a href="{{ route('contact')  }}">
+            <div class="menu-item {{ Route::is('contact') ? 'active' : '' }} active-red"
+                data-url="{{ route('contact') }}">
+                <a href="{{ route('contact') }}">
                     <p>সাপোর্ট</p>
                 </a>
             </div>
             <div class="menu-item  active-yellow" id="filterButton">
                 <p>ফিল্টার</p>
             </div>
-            
-            <div class="menu-item {{ Route::is('home') ? 'active' : '' }} active-red" data-url="{{ route('home')  }}" id="homeLink">
-                <a href="{{ route('home')  }}">
+
+            <div class="menu-item {{ Route::is('home') ? 'active' : '' }} active-red" data-url="{{ route('home') }}"
+                id="homeLink">
+                <a href="{{ route('home') }}">
                     <p>বর বউ</p>
                 </a>
             </div>
-            
-            <div class="menu-item {{ Route::is('wishlist') ? 'active' : '' }} active-yellow" data-url="{{ route('wishlist')  }}">
-                <a href="{{ route('wishlist')  }}" class="wishlist-link-button">
+
+            <div class="menu-item {{ Route::is('wishlist') ? 'active' : '' }} active-yellow"
+                data-url="{{ route('wishlist') }}">
+                <a href="{{ route('wishlist') }}" class="wishlist-link-button">
                     <p>ডাউনলোড</p>
                 </a>
-            </div>        
-            
-            @if(Auth::guard('member')->user())
-            <div class="menu-item {{ Route::is('member.editprofile') ? 'active' : '' }} active-red" data-url="{{ route('member.editprofile')  }}">
-                <a href="{{ route('member.editprofile')  }}">
-                    <p>একাউন্ট</p>
-                </a>
             </div>
+
+            @if (Auth::guard('member')->user())
+                <div class="menu-item {{ Route::is('member.editprofile') ? 'active' : '' }} active-red"
+                    data-url="{{ route('member.editprofile') }}">
+                    <a href="{{ route('member.editprofile') }}">
+                        <p>একাউন্ট</p>
+                    </a>
+                </div>
             @else
-            <div class="menu-item {{ Route::is('member.login') ? 'active' : '' }} active-red" data-url="{{ route('member.login')  }}">
-                <a href="{{ route('member.login')  }}">
-                    <p>লগইন</p>
-                </a>
-            </div>
+                <div class="menu-item {{ Route::is('member.login') ? 'active' : '' }} active-red"
+                    data-url="{{ route('member.login') }}">
+                    <a href="{{ route('member.login') }}">
+                        <p>লগইন</p>
+                    </a>
+                </div>
             @endif
         </div>
     </div>
@@ -258,194 +274,231 @@
             <i class="fa fa-angle-up"></i>
         </div>
     </div>
-    
+
     <div class="app-release-btn " style="">
         <a href="{{ route('contact') }}" style="">
             <img src="{{ asset('public/frontEnd/images/headphone-1.png') }}" style="" />
         </a>
     </div>
-    
-        
-       
-        <div id="page-overlay"></div>
-        <div class="filter-bottom filter-show master-filter " style="" id="masterFilter">
-            <form id="filterform" name="searchForm" action="{{ route('home') }}">
-                <input type="reset" id="reset-form" style="display: none;" />
-                <div class="group">
-                    <div class="box age">
-                        <label for="from">বয়স (শুরু)</label>
-                        <select class=" hero-filter-dp form-select " id="from"
-                            name="from">
-                            <option value="">নির্বাচন করুন </option>
-                            @for ($i = 18; $i <= 99; $i++)
-                                <option value="{{ $i }}"
-                                    @if ($i == request()->get('from')) selected @endif>
-                                    {{ App\Converter\enandbn\BanglaConverter::en2bn($i) }} বছর
-                                </option>
-                            @endfor
-                        </select>
-                    </div>
 
-                    <div class="box age">
-                        <label for="to">বয়স (শেষ)</label>
-                        <select class="hero-filter-dp form-select " name="to"
-                            id="to">
-                            <option value="">নির্বাচন করুন </option>
-                            @for ($i = 18; $i <= 99; $i++)
-                                <option value="{{ $i }}"
-                                    @if ($i == request()->get('to')) selected @endif>
-                                    {{ App\Converter\enandbn\BanglaConverter::en2bn($i) }} বছর
-                                </option>
-                            @endfor
-                        </select>
-                    </div>
-                </div>
 
-                <div class="group">
-                    <div class="box gender">
-                        <label for="gender">বর বউ</label>
-                        <select class="hero-filter-dp form-select " name="gender"
-                            id="gender">
-                            <option value="" selected="">নির্বাচন করুন </option>
-                            <option value="1" {{ request()->get('gender') == 1 ? 'selected' : '' }}>বর
+
+    <div id="page-overlay"></div>
+    <div class="filter-bottom filter-show master-filter " style="" id="masterFilter">
+        <form id="filterform" name="searchForm" action="{{ route('home') }}">
+            <input type="reset" id="reset-form" style="display: none;" />
+            <div class="group">
+                <div class="box age">
+                    <label for="from">বয়স (শুরু)</label>
+                    <select class=" hero-filter-dp form-select " id="from" name="from">
+                        <option value="">নির্বাচন করুন </option>
+                        @for ($i = 18; $i <= 99; $i++)
+                            <option value="{{ $i }}" @if ($i == request()->get('from')) selected @endif>
+                                {{ App\Converter\enandbn\BanglaConverter::en2bn($i) }} বছর
                             </option>
-                            <option value="2" {{ request()->get('gender') == 2 ? 'selected' : '' }}>বউ
+                        @endfor
+                    </select>
+                </div>
+
+                <div class="box age">
+                    <label for="to">বয়স (শেষ)</label>
+                    <select class="hero-filter-dp form-select " name="to" id="to">
+                        <option value="">নির্বাচন করুন </option>
+                        @for ($i = 18; $i <= 99; $i++)
+                            <option value="{{ $i }}" @if ($i == request()->get('to')) selected @endif>
+                                {{ App\Converter\enandbn\BanglaConverter::en2bn($i) }} বছর
                             </option>
-                        </select>
-                    </div>
+                        @endfor
+                    </select>
+                </div>
+            </div>
 
-                    <div class="box cast">
-                        <label for="cast">বৈবাহিক অবস্থা</label>
-                        <select class="hero-filter-dp form-select " name="marital_status"
-                            id="marital_status">
-                            <option value="" selected="">নির্বাচন করুন </option>
-                            @foreach ($maritalstatuses as $marital)
-                                <option value="{{ $marital->id }}"
-                                    {{ request()->get('marital_status') == $marital->id ? 'selected' : '' }}>
-                                    {{ $marital->title }}</option>
-                            @endforeach
-                        </select>
+            <div class="group">
+                <div class="box gender">
+                    <label for="gender">বর বউ</label>
+                    <select class="hero-filter-dp form-select " name="gender" id="gender">
+                        <option value="" selected="">নির্বাচন করুন </option>
+                        <option value="1" {{ request()->get('gender') == 1 ? 'selected' : '' }}>বর
+                        </option>
+                        <option value="2" {{ request()->get('gender') == 2 ? 'selected' : '' }}>বউ
+                        </option>
+                    </select>
+                </div>
+
+                <div class="box cast">
+                    <label for="cast">বৈবাহিক অবস্থা</label>
+                    <select class="hero-filter-dp form-select " name="marital_status" id="marital_status">
+                        <option value="" selected="">নির্বাচন করুন </option>
+                        @foreach ($maritalstatuses as $marital)
+                            <option value="{{ $marital->id }}"
+                                {{ request()->get('marital_status') == $marital->id ? 'selected' : '' }}>
+                                {{ $marital->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="group">
+                <div class="box religion">
+                    <label for="gender">ধর্ম</label>
+                    <select class="hero-filter-dp form-select " name="religion" id="religion">
+                        <option value="" selected="">নির্বাচন করুন </option>
+                        @foreach ($religions as $religion)
+                            <option value="{{ $religion->id }}"
+                                {{ request()->get('religion') == $religion->id ? 'selected' : '' }}>
+                                {{ $religion->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="box education">
+                    <label for="gender">শিক্ষাগত যোগ্যতা</label>
+                    <select class="hero-filter-dp form-select " name="degree" id="degree">
+                        <option value="" selected="">নির্বাচন করুন </option>
+                        @foreach ($edulevels as $edulevel)
+                            <option value="{{ $edulevel->id }}"
+                                {{ request()->get('degree') == $edulevel->id ? 'selected' : '' }}>
+                                {{ $edulevel->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+            </div>
+            <div class="group">
+                <div class="box education">
+                    <label for="profession">পেশাগত যোগ্যতা</label>
+                    <select class="hero-filter-dp form-select select2 " name="profession" id="profession">
+                        <option value="" selected="">নির্বাচন করুন </option>
+                        @foreach ($professions as $profession)
+                            <option value="{{ $profession->id }}"
+                                {{ request()->get('profession') == $profession->id ? 'selected' : '' }}>
+                                {{ $profession->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="box working">
+                    <label for="working">কর্মক্ষেত্র</label>
+                    <select class="hero-filter-dp form-select " name="working" id="working">
+                        <option value="" selected="">নির্বাচন করুন</option>
+                        @foreach ($workings as $working)
+                            <option value="{{ $working->id }}"
+                                {{ request()->get('working') == $working->id ? 'selected' : '' }}>
+                                {{ $working->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+            </div>
+            <div class="group">
+
+                <div class="box residency">
+                    <label for="residency">আবাসস্থল </label>
+                    <select class="hero-filter-dp form-select " name="residency" id="residency">
+                        <option value="">নির্বাচন করুন </option>
+                        @foreach ($countries as $country)
+                            <option value="{{ $country->id }}"
+                                {{ request()->get('residency') == $country->id ? 'selected' : '' }}>
+                                {{ $country->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="box district">
+                    <label for="division_id2">বিভাগ </label>
+                    <select class="hero-filter-dp form-select " name="division" id="division_id2">
+                        <option value="" selected="">নির্বাচন করুন </option>
+                        @foreach ($locations as $location)
+                            <option value="{{ $location->id }}"
+                                {{ request()->get('division') == $location->id ? 'selected' : '' }}>
+                                {{ $location->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="group">
+                <div class="box district">
+                    <label for="district2">জেলা</label>
+                    <select class="hero-filter-dp form-select  " id="district_id2" name="district">
+                        <option value="" selected="">নির্বাচন করুন </option>
+                        @foreach ($districts as $district)
+                            <option value="{{ $district->id }}"
+                                {{ request()->get('district') == $district->id ? 'selected' : '' }}>
+                                {{ $district->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="box residency">
+                    <label for="upazila_id">উপজেলা/থানা</label>
+                    <select class="hero-filter-dp form-select " id="upazila_id" name="upazila">
+                        <option value="" selected="">নির্বাচন করুন </option>
+
+                        @foreach ($upazilas as $upazila)
+                            <option value="{{ $upazila->id }}"
+                                {{ request()->get('upazila') == $upazila->id ? 'selected' : '' }}>
+                                {{ $upazila->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="box fltrsubmit sidefilter">
+                <button type="submit" value="Filter" class="btn fltrbtn">খুঁজুন</button>
+                <a class="btn text-white midnight-blue d-block text-center filter-change-button"
+                    href="{{ route('home') }}">
+                    <!--<i style="font-size: 25px;" class="fa-solid fa-eraser midnight-blue-color p-2 rounded-3"></i>-->
+                    পরিবর্তন
+                </a>
+            </div>
+        </form>
+    </div>
+    @php
+        $conversation = Session::get('conversations', []);
+        foreach ($conversation as $message) {
+            echo $message . '<br>'; // Display each message
+        }
+    @endphp
+    <span class="d-none">{{ request()->ip() }} </span>
+
+    @if (Auth::guard('member')->user())
+        @php
+            $conversation_id = Session::get('conversation_id');
+            $has_conversation = Session::has('conversation_id');
+            $loggedInMemberId = Auth::guard('member')->user()->id;
+            if ($conversation_id) {
+                $conversation = \App\Models\Conversation::with('member_one', 'member_two')->find($conversation_id);
+                if (!$conversation) {
+                    return response()->json(['error' => 'Conversation not found'], 404);
+                }
+                $record = \App\Models\Conversation::where('member_one_id', $loggedInMemberId)->first();
+                $conversationMemberImage = $record
+                    ? $conversation->member_two->memberimage->image_one
+                    : $conversation->member_one->memberimage->image_one;
+                // echo $conversation;
+                echo $conversation_id;
+            }
+        @endphp
+
+        <div class="position-fixed message-popup-wrapper {{ $conversation_id ? '' : 'd-none' }}">
+            <div class="message-popup-inner" style="{{ $has_conversation ? 'display: block;' : '' }}">
+                <div class="message-popup-header">
+                </div>
+                <div class="message-popup-body">
+                    <ul id="messageBox"></ul>
+                </div>
+                <div class="message-popup-control">
+                    <div class="inner">
+                        <div class="input">
+                            <input type="text" class="message-content" name="content">
+                        </div>
+                        <div class="submit">
+                            @if ($conversation)
+                                <button class="message-send" data-id="{{ $conversation->id ?? '' }}">
+                                    @include('frontEnd.svg.send')
+                                </button>
+                            @endif
+                        </div>
                     </div>
                 </div>
-                <div class="group">
-                    <div class="box religion">
-                        <label for="gender">ধর্ম</label>
-                        <select class="hero-filter-dp form-select " name="religion"
-                            id="religion">
-                            <option value="" selected="">নির্বাচন করুন </option>
-                            @foreach ($religions as $religion)
-                                <option value="{{ $religion->id }}"
-                                    {{ request()->get('religion') == $religion->id ? 'selected' : '' }}>
-                                    {{ $religion->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="box education">
-                        <label for="gender">শিক্ষাগত যোগ্যতা</label>
-                        <select class="hero-filter-dp form-select " name="degree"
-                            id="degree">
-                            <option value="" selected="">নির্বাচন করুন </option>
-                            @foreach ($edulevels as $edulevel)
-                                <option value="{{ $edulevel->id }}"
-                                    {{ request()->get('degree') == $edulevel->id ? 'selected' : '' }}>
-                                    {{ $edulevel->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                </div>
-                <div class="group">
-                    <div class="box education">
-                        <label for="profession">পেশাগত যোগ্যতা</label>
-                        <select class="hero-filter-dp form-select select2 " name="profession"
-                            id="profession">
-                            <option value="" selected="">নির্বাচন করুন </option>
-                            @foreach ($professions as $profession)
-                                <option value="{{ $profession->id }}"
-                                    {{ request()->get('profession') == $profession->id ? 'selected' : '' }}>
-                                    {{ $profession->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="box working">
-                        <label for="working">কর্মক্ষেত্র</label>
-                        <select class="hero-filter-dp form-select " name="working"
-                            id="working">
-                            <option value="" selected="">নির্বাচন করুন</option>
-                            @foreach ($workings as $working)
-                                <option value="{{ $working->id }}"
-                                    {{ request()->get('working') == $working->id ? 'selected' : '' }}>
-                                    {{ $working->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                </div>
-                <div class="group">
-
-                    <div class="box residency">
-                        <label for="residency">আবাসস্থল </label>
-                        <select class="hero-filter-dp form-select " name="residency"
-                            id="residency">
-                            <option value="">নির্বাচন করুন </option>
-                            @foreach ($countries as $country)
-                                <option value="{{ $country->id }}"
-                                    {{ request()->get('residency') == $country->id ? 'selected' : '' }}>
-                                    {{ $country->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="box district">
-                        <label for="division_id2">বিভাগ </label>
-                        <select class="hero-filter-dp form-select " name="division"
-                            id="division_id2">
-                            <option value="" selected="">নির্বাচন করুন </option>
-                            @foreach ($locations as $location)
-                                <option value="{{ $location->id }}"
-                                    {{ request()->get('division') == $location->id ? 'selected' : '' }}>
-                                    {{ $location->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="group">
-                    <div class="box district">
-                        <label for="district2">জেলা</label>
-                        <select class="hero-filter-dp form-select  " id="district_id2"
-                            name="district">
-                            <option value="" selected="">নির্বাচন করুন </option>
-                            @foreach ($districts as $district)
-                                <option value="{{ $district->id }}"
-                                    {{ request()->get('district') == $district->id ? 'selected' : '' }}>
-                                    {{ $district->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="box residency">
-                        <label for="upazila_id">উপজেলা/থানা</label>
-                        <select class="hero-filter-dp form-select " id="upazila_id"
-                            name="upazila">
-                            <option value="" selected="">নির্বাচন করুন </option>
-
-                            @foreach ($upazilas as $upazila)
-                                <option value="{{ $upazila->id }}"
-                                    {{ request()->get('upazila') == $upazila->id ? 'selected' : '' }}>
-                                    {{ $upazila->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="box fltrsubmit sidefilter">
-                    <button type="submit" value="Filter" class="btn fltrbtn">খুঁজুন</button>
-                    <a class="btn text-white midnight-blue d-block text-center filter-change-button"  href="{{ route('home') }}">
-                        <!--<i style="font-size: 25px;" class="fa-solid fa-eraser midnight-blue-color p-2 rounded-3"></i>-->
-                        পরিবর্তন 
-                    </a>
-                </div>
-            </form>
+            </div>
         </div>
-    <span class="d-none">{{ request()->ip() }}</span>
+    @endif
 
     <!-- script part -->
     <!-- bootstrap script -->
@@ -462,38 +515,39 @@
     <!-- dropify -->
     <script src="{{ asset('public/backEnd/') }}/assets/libs/dropify/js/dropify.min.js"></script>
     <!-- nice select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+    <script>
+        feather.replace();
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-   
-
     <script src="{{ asset('public/frontEnd/') }}/js/jquery.nice-select.min.js"></script>
     <!-- youtube bg player -->
     <script src="{{ asset('public/frontEnd/') }}/js/jquery.youtube-background.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <!-- toastr -->
     <script src="{{ asset('public/backEnd/') }}/assets/js/toastr.min.js"></script>
     {!! Toastr::message() !!}
     <script src="{{ asset('public/frontEnd/') }}/js/script.js"></script>
     <script>
-    $(document).ready(function() {
-        $('.menu-item').on('click', function() {
-            // Get the URL from the data-url attribute
-            var url = $(this).data('url');
-            
-            // Redirect to the URL
-            if (url) {
-                window.location.href = url;
-            }
+        $(document).ready(function() {
+            $('.menu-item').on('click', function() {
+                // Get the URL from the data-url attribute
+                var url = $(this).data('url');
+
+                // Redirect to the URL
+                if (url) {
+                    window.location.href = url;
+                }
+            });
         });
-    });
     </script>
     <script>
         $(document).ready(function() {
             $("#scroll-down-animation").click(function() {
                 // Check the screen width
                 let scrollTarget = window.innerWidth < 400 ? 600 :
-                520; // Adjust the scrollTop values as needed
+                    520; // Adjust the scrollTop values as needed
 
                 $("html, body").animate({
                     scrollTop: scrollTarget
@@ -521,10 +575,10 @@
                     }
                 }
             }
-        
+
             // Initial check
             activateSelect2();
-        
+
             // Re-check on window resize
             $(window).resize(function() {
                 activateSelect2();
@@ -636,11 +690,11 @@
             });
             $("body").on("click", "#filterButton", function() {
                 $(this).toggleClass('active');
-                if($("#homeLink").hasClass('active')) {
+                if ($("#homeLink").hasClass('active')) {
                     $("#homeLink").removeClass('active');
                 }
                 $("#masterFilter").toggleClass("active");
-                
+
                 if ($("#page-overlay").css("display") === "none") {
                     $("#page-overlay").css("display", "block");
                     $('body').addClass('overflow-none');
@@ -648,18 +702,18 @@
                     $("#page-overlay").css("display", "none");
                     $('body').removeClass('overflow-none');
                 }
-                
+
                 // if ($("html").css("overflow") === "hidden") {
                 //     $("html").css("overflow", "auto");
                 // } else {
                 //     $("html").css("overflow", "hidden");
                 // }
             });
-            
+
             $(document).ready(function() {
                 $("#yourButtonID").click(function() {
                     // Toggle overflow based on current state
-                    
+
                 });
             });
         });
@@ -701,9 +755,11 @@
                     success: function(res) {
                         if (res) {
                             $("#district_id, #district_id2").empty();
-                            $("#district_id, #district_id2").append('<option value="">নির্বাচন করুন </option>');
+                            $("#district_id, #district_id2").append(
+                                '<option value="">নির্বাচন করুন </option>');
                             $.each(res, function(key, value) {
-                                $("#district_id, #district_id2").append('<option value="' + key + '">' +
+                                $("#district_id, #district_id2").append('<option value="' +
+                                    key + '">' +
                                     value + "</option>");
                             });
                         } else {
@@ -727,9 +783,11 @@
                     success: function(res) {
                         if (res) {
                             $("#upazila_id, #upazila_id2").empty();
-                            $("#upazila_id, #upazila_id2").append('<option value=""> নির্বাচন করুন </option>');
+                            $("#upazila_id, #upazila_id2").append(
+                                '<option value=""> নির্বাচন করুন </option>');
                             $.each(res, function(key, value) {
-                                $("#upazila_id, #upazila_id2").append('<option value="' + key + '">' + value +
+                                $("#upazila_id, #upazila_id2").append('<option value="' + key +
+                                    '">' + value +
                                     "</option>");
                             });
                         } else {
@@ -797,8 +855,144 @@
                 $("#present_upazila").empty();
             }
         });
-
     </script>
+
+    @if (Session::has('conversation_id'))
+        <script>
+            // message-popup-wrapper
+            function message_toggle(id) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('member.message.reload') }}",
+                    data: {
+                        id: id,
+                    },
+                    dataType: "html",
+                    success: function(data) {
+                        $(".message-popup-wrapper").show();
+                        $("#messageBox").html(data);
+                    },
+                });
+            }
+            // message-header
+            function message_header(id) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('member.message.header') }}",
+                    data: {
+                        id: id,
+                    },
+                    dataType: "html",
+                    success: function(data) {
+                        $(".message-popup-header").html(data);
+                    },
+                });
+            }
+
+            let globalConversationId = null; // 🔥 Store globally
+
+            function updateMessages() {
+                // const conversation_id = $('.message-send').data('id');
+                const conversation_id = globalConversationId || $('.message-send').attr('data-id');
+                if (conversation_id) {
+                    console.log('Updating with ID:', conversation_id);
+                    message_toggle(conversation_id);
+                    message_header(conversation_id);
+                } else {
+                    console.log('No conversation ID found');
+                }
+            }
+        </script>
+    @endif
+    <script>
+        $(document).ready(function() {
+            setInterval(() => {
+                updateMessages();
+            }, 5000);
+            $(document).on('click', '.member-conversation', function(e) {
+                e.preventDefault();
+                const id = $(this).data('id');
+                $.ajax({
+                    url: '{{ route('member.conversation.create') }}',
+                    type: 'POST',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        id: id,
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            let conversationId = response.conversation.id;
+                            $('.message-popup-wrapper').removeClass('d-none');
+                            $('.message-send').attr('data-id', conversationId);
+                            console.log('New conversation ID set:', conversationId);
+                            globalConversationId = conversationId;
+                            updateMessages();
+                        } else {
+                            alert(response.message || 'Failed to update cart');
+                            if (response.status == 'unlogged') {
+                                window.location.href = "{{ route('member.login') }}";
+                            } else if (response.status == 'unpublished') {
+                                window.location.href = "{{ route('member.member_publish') }}";
+                            }
+                        }
+                    },
+                    error: function() {
+                        alert('An error occurred while updating the cart.');
+                    },
+                });
+            });
+
+            $(document).on('click', '.message-send', function(e) {
+                e.preventDefault();
+                const id = $(this).data('id');
+                const messageContent = $('.message-content').val();
+                $.ajax({
+                    url: '{{ route('member.message.update') }}',
+                    type: 'POST',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        id: id,
+                        messageContent: messageContent,
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            let conversationId = response.conversation.id;
+                            $('.message-content').val('');
+                            return message_toggle(conversationId);
+                        } else {
+                            alert(response.message || 'Failed to update cart');
+                        }
+                    },
+                    error: function() {
+                        alert('An error occurred while updating the cart.');
+                    },
+                });
+            });
+            // remove session
+            $(document).on('click', '.message-close-button', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '{{ route('member.remove.session') }}',
+                    type: 'POST',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $(".message-popup-inner").hide();
+                        } else {
+                            alert(response.message || 'Failed to update cart');
+                        }
+                    },
+                    error: function() {
+                        alert('An error occurred while updating the cart.');
+                    },
+                });
+            });
+        });
+    </script>
+
+
     @yield('script')
     <!-- Messenger Chat Plugin Code -->
     <div id="fb-root"></div>
@@ -840,6 +1034,7 @@
                 $('.scrolltop').stop(true, true).fadeOut();
             }
         });
+
         $(function() {
             $(".scroll").click(function() {
                 $("html,body").animate({

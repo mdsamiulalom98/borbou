@@ -15,7 +15,9 @@
                                 <div class="tab-sidebar">
                                     <ul>
                                         @if (Auth::guard('member')->user()->publish == 1)
-                                            <li class=""><a href="{{ url('member/download') }}" class="red text-white"><i class="fa fa-heart d-inline-block" style="margin-right: 2px;"></i> বর বউ  </a></li>
+                                            <li class=""><a href="{{ url('member/download') }}"
+                                                    class="red text-white"><i class="fa fa-heart d-inline-block"
+                                                        style="margin-right: 2px;"></i> বর বউ </a></li>
                                         @else
                                             <li class="">
                                                 <form action="{{ route('member.member_publish') }}" method="POST">
@@ -24,13 +26,15 @@
                                                         style="font-size: 15px;font-family: 'Potro Sans Bangla', sans-serif;background-color: #ff0000;color: #ffffff;width: 100%;font-weight: 600;padding: 7px 0px 7px;height: 40px;line-height: 15px;"
                                                         class="btn">
                                                         <i class="fa-solid fa-dollar d-inline-block "></i>
-                                                         পেমেন্ট করুন</button>
+                                                        পেমেন্ট করুন</button>
                                                 </form>
                                             </li>
                                         @endif
-                                        <li><a href="javascript:void()" class="midnight-blue text-white"
-                                                id="enableBtn"><i class="fa-solid fa-pen-to-square d-inline-block " style="margin-right: 2px;"></i> সংশোধন </a></li>
-                                        <li><a class="mobile-buttons yellow" href="{{ route('member.logout') }}"><i style="margin-right: 2px;"
+                                        <li><a href="javascript:void()" class="midnight-blue text-white" id="enableBtn"><i
+                                                    class="fa-solid fa-pen-to-square d-inline-block "
+                                                    style="margin-right: 2px;"></i> সংশোধন </a></li>
+                                        <li><a class="mobile-buttons yellow" href="{{ route('member.logout') }}"><i
+                                                    style="margin-right: 2px;"
                                                     class="d-inline-block  fa-power-off fa-solid pr-1"></i>
                                                 লগ আউট </a></li>
                                     </ul>
@@ -302,7 +306,7 @@
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <div class="grid-item">
@@ -716,63 +720,58 @@
                                                     <p class="max-image-text">আপনার তিনটি ছবি আপলোড করুন</p>
                                                     <div class="register-image-wrapper">
                                                         <div class="addphoto-flex" id="editPhotos">
-                                                            @if ($memberimage ? $memberimage->image_one : '')
-                                                                <div class="image-div">
-                                                                    <a data-id="{{ $memberimage->id }}"
-                                                                        class="member-image member-image-one">
-                                                                        ডিলিট করুন
-                                                                    </a>
-                                                                    <img src="{{ asset($memberimage->image_one) }}" />
-                                                                </div>
-                                                            @else
-                                                                <input type="file" name="image_one" id="image_one"
-                                                                    data-plugins="dropify"
-                                                                    class="dropify @error('image_one') is-invalid @enderror"
-                                                                    required />
+
+                                                            <div class="image-div">
+
+                                                                <img id="preview_one"
+                                                                    src="{{ asset($memberimage->image_one) }}" />
+
+                                                                <label for="" class="upload-btn member-image">
+                                                                    পরিবর্তন
+                                                                    <input type="file" name="image_one" id="image_one"
+                                                                        class="file-input @error('image_one') is-invalid @enderror"
+                                                                         />
+                                                                </label>
                                                                 @error('image_one')
                                                                     <span class="invalid-feedback" role="alert">
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
                                                                 @enderror
-                                                            @endif
-                                                            @if ($memberimage ? $memberimage->image_two : '')
-                                                                <div class="image-div">
-                                                                    <a data-id="{{ $memberimage->id }}"
-                                                                        class="member-image member-image-two">
-                                                                        ডিলিট করুন
-                                                                    </a>
-                                                                    <img src="{{ asset($memberimage->image_two) }}" />
-                                                                </div>
-                                                            @else
-                                                                <input type="file" name="image_two" id="image_two"
-                                                                    data-plugins="dropify"
-                                                                    class="dropify @error('image_two') is-invalid @enderror"
-                                                                    required />
+                                                            </div>
+
+                                                            <div class="image-div">
+                                                                <img id="preview_two"
+                                                                    src="{{ asset($memberimage->image_two) }}" />
+                                                                <label for="" class="upload-btn member-image">
+                                                                    পরিবর্তন
+                                                                    <input type="file" name="image_two" id="image_two"
+                                                                        class="file-input @error('image_two') is-invalid @enderror"
+                                                                         />
+                                                                </label>
+
                                                                 @error('image_two')
                                                                     <span class="invalid-feedback" role="alert">
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
                                                                 @enderror
-                                                            @endif
-                                                            @if ($memberimage ? $memberimage->image_three : '')
-                                                                <div class="image-div">
-                                                                    <a data-id="{{ $memberimage->id }}"
-                                                                        class="member-image member-image-three">
-                                                                        ডিলিট করুন
-                                                                    </a>
-                                                                    <img src="{{ asset($memberimage->image_three) }}" />
-                                                                </div>
-                                                            @else
-                                                                <input type="file" name="image_three" id="image_three"
-                                                                    data-plugins="dropify"
-                                                                    class="dropify @error('image_three') is-invalid @enderror"
-                                                                    required />
+                                                            </div>
+
+                                                            <div class="image-div">
+                                                                <img id="preview_three"
+                                                                    src="{{ asset($memberimage->image_three) }}" />
+                                                                <label for="" class="upload-btn member-image">
+                                                                    পরিবর্তন
+                                                                    <input type="file" name="image_three"
+                                                                        id="image_three"
+                                                                        class="file-input @error('image_three') is-invalid @enderror"
+                                                                         />
+                                                                </label>
                                                                 @error('image_three')
                                                                     <span class="invalid-feedback" role="alert">
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
                                                                 @enderror
-                                                            @endif
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -872,7 +871,6 @@
     <script src="{{ asset('public/backEnd/') }}/assets/js/pages/form-advanced.init.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        
         $(document).ready(function() {
             function activateSelect2() {
                 if ($(window).width() > 500) {
@@ -884,91 +882,36 @@
                     }
                 }
             }
-        
+
             // Initial check
             activateSelect2();
-        
+
             // Re-check on window resize
             $(window).resize(function() {
                 activateSelect2();
             });
         });
-
     </script>
     <script>
-        $('.member-image-one').on('click', function() {
-            var id = $(this).data('id');
-            // alert(id);
-            if (id) {
-                $.ajax({
-                    cache: 'false',
-                    type: "GET",
-                    url: "{{ url('member/delete-image-one') }}/" + id,
-                    dataType: "json",
-                    success: function(data) {
-                        if (data) {
-                            console.log("success");
-                            return photo_load();
-                        }
-                    },
-
-                });
+        function previewImage(input, previewId) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    $(previewId).attr('src', e.target.result).show();
+                }
+                reader.readAsDataURL(input.files[0]);
             }
-        });
-
-        $('.member-image-two').on('click', function() {
-            var id = $(this).data('id');
-            // alert(id);
-            if (id) {
-                $.ajax({
-                    cache: 'false',
-                    type: "GET",
-                    url: "{{ url('member/delete-image-two') }}/" + id,
-                    dataType: "json",
-                    success: function(data) {
-                        if (data) {
-                            console.log("success");
-                            return photo_load();
-                        }
-                    },
-
-                });
-            }
-        });
-
-        $('.member-image-three').on('click', function() {
-            var id = $(this).data('id');
-            // alert(id);
-            if (id) {
-                $.ajax({
-                    cache: 'false',
-                    type: "GET",
-                    url: "{{ url('member/delete-image-three') }}/" + id,
-                    dataType: "json",
-                    success: function(data) {
-                        if (data) {
-                            console.log("success");
-                            return photo_load();
-                        }
-                    },
-
-                });
-            }
-        });
-
-        function photo_load() {
-            $.ajax({
-                type: "GET",
-                url: "{{ route('photos.load') }}",
-                success: function(data) {
-                    if (data) {
-                        $("#editPhotos").html(data);
-                    } else {
-                        $("#editPhotos").empty();
-                    }
-                },
-            });
         }
+
+        $("#image_one").change(function() {
+            previewImage(this, "#preview_one");
+        });
+        $("#image_two").change(function() {
+            previewImage(this, "#preview_two");
+        });
+        $("#image_three").change(function() {
+            previewImage(this, "#preview_three");
+        });
     </script>
     <script>
         $(document).ready(function() {
@@ -1132,7 +1075,7 @@
         //     this.style.height = this.scrollHeight + 'px'; // Set height to scrollHeight
         // });
     </script>
-    
+
     <script>
         // // Function to adjust the height of a textarea
         // function adjustHeight(textarea) {

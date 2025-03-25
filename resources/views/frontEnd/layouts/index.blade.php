@@ -6,13 +6,16 @@
 @section('fbshareimage', asset('public/frontEnd/images/logo.png'))
 @section('content')
     @include('frontEnd.layouts.navigation')
-    
+
     <span id="device-width" style="
     position: fixed;
     top: 160px;
     z-index: 999;
     color: transparent;
 "></span>
+    @php
+        $ifMember = Auth::guard('member')->check();
+    @endphp
     <div class="hero">
         <div class="warraper">
             <div class="container d-flex">
@@ -20,18 +23,21 @@
                 <div class="row">
                     <div class="hero-content">
                         <img src="{{ asset('public/frontEnd/images/Bor Bou.png') }}" alt="">
-                        
+
                         <div class="card-body" style="position: absolute;color: transparent;z-index: -1">
-                            <p> Bor Bou - The Best Matrimony Website in Bangladesh | Register Now! Join the Top Online Marriage Media and Find Your Perfect Life Partner. </p>
+                            <p> Bor Bou - The Best Matrimony Website in Bangladesh | Register Now! Join the Top Online
+                                Marriage Media and Find Your Perfect Life Partner. </p>
                         </div>
 
 
                         <div class="hero-form">
-                            
-                        <div class="about-sort-intro" style="position: absolute; z-index: -1">
-                            <p style="color: transparent;"> Bor Bou - The Best Matrimony Website in Bangladesh | Register Now! Join the Top Online Marriage Media and Find Your Perfect Life Partner. </p>
-                        </div>
-                            
+
+                            <div class="about-sort-intro" style="position: absolute; z-index: -1">
+                                <p style="color: transparent;"> Bor Bou - The Best Matrimony Website in Bangladesh |
+                                    Register Now! Join the Top Online Marriage Media and Find Your Perfect Life Partner.
+                                </p>
+                            </div>
+
                             <form action="{{ route('home') }}" method="GET">
                                 <div class="search-form-row">
                                     <div class="homeinput">
@@ -40,9 +46,11 @@
                                                 <label>বর বউ</label>
                                                 <select class="hero-filter-dp form-select no-select2" name="gender">
                                                     <option value="" selected="">নির্বাচন করুন </option>
-                                                    <option {{ request()->get('gender') == 1 ? 'selected' : '' }} value="1">
+                                                    <option {{ request()->get('gender') == 1 ? 'selected' : '' }}
+                                                        value="1">
                                                         বর</option>
-                                                    <option {{ request()->get('gender') == 2 ? 'selected' : '' }} value="2">
+                                                    <option {{ request()->get('gender') == 2 ? 'selected' : '' }}
+                                                        value="2">
                                                         বউ</option>
                                                 </select>
                                             </div>
@@ -51,7 +59,8 @@
                                         <div class="marital-status home-input-item">
                                             <div class="box">
                                                 <label>বৈবাহিক অবস্থা</label>
-                                                <select class="hero-filter-dp form-select no-select2 " name="marital_status">
+                                                <select class="hero-filter-dp form-select no-select2 "
+                                                    name="marital_status">
                                                     <option value="" selected="">নির্বাচন করুন </option>
                                                     @foreach ($maritalstatuses as $maritalstatus)
                                                         <option value="{{ $maritalstatus->id }}"
@@ -95,9 +104,11 @@
                                         <!--        <label for="from">বয়স (শুরু)</label>-->
                                         <!--        <select class="hero-filter-dp form-select" name="from">-->
                                         <!--            <option value="" selected="">নির্বাচন করুন </option>-->
-                                        <!--            @for ($i = 18; $i <= 99; $i++) -->
+                                        <!--            @for ($i = 18; $i <= 99; $i++)
+    -->
                                         <!--            <option value="{{ $i }}" @if ($i == 18) selected @endif>{{ App\Converter\enandbn\BanglaConverter::en2bn($i) }} বছর </option>                                                    -->
-                                        <!-- @endfor-->
+                                        <!--
+    @endfor-->
                                         <!--        </select>-->
                                         <!--    </div>-->
                                         <!--</div>-->
@@ -107,9 +118,11 @@
                                         <!--        <label for="to">বয়স (শেষ)</label>-->
                                         <!--        <select class="hero-filter-dp form-select" name="to">-->
                                         <!--            <option value="" selected="">নির্বাচন করুন </option>-->
-                                        <!--            @for ($i = 18; $i <= 99; $i++) -->
+                                        <!--            @for ($i = 18; $i <= 99; $i++)
+    -->
                                         <!--            <option value="{{ $i }}" @if ($i == 99) selected @endif >{{ App\Converter\enandbn\BanglaConverter::en2bn($i) }} বছর </option>                                                    -->
-                                        <!--  @endfor-->
+                                        <!--
+    @endfor-->
                                         <!--        </select>-->
                                         <!--    </div>-->
                                         <!--</div>-->
@@ -149,8 +162,9 @@
                     <div class="idsearch">
                         <form id="breadcumbidsearch">
                             <div class="idinput">
-                                <input type="text" class="search_keyword search_click" value="{{ request()->get('member_id') }}" id="memberId"
-                                    name="member_id" placeholder="আইডি নাম্বার " />
+                                <input type="text" class="search_keyword search_click"
+                                    value="{{ request()->get('member_id') }}" id="memberId" name="member_id"
+                                    placeholder="আইডি নাম্বার " />
                             </div>
                             <button type="submit"><i class="fa-solid fa-search"></i></button>
                         </form>
@@ -161,7 +175,7 @@
                     <div class="fitlers sticky">
                         <div class="filterbox">
                             <div class="filter-top">
-                                <h2 id="filterDropdown"><i class="fa-solid fa-filter"></i> ফিল্টার  </h2>
+                                <h2 id="filterDropdown"><i class="fa-solid fa-filter"></i> ফিল্টার </h2>
                                 <label for="reset-form"><a href="{{ route('home') }}">পরিবর্তন</a></label>
                             </div>
                             <div class="filter-bottom filter-show" style="display: none;">
@@ -170,8 +184,7 @@
                                     <div class="group">
                                         <div class="box age">
                                             <label for="from">বয়স (শুরু)</label>
-                                            <select class=" hero-filter-dp form-select " id="from"
-                                                name="from">
+                                            <select class=" hero-filter-dp form-select " id="from" name="from">
                                                 <option value="">নির্বাচন করুন </option>
                                                 @for ($i = 18; $i <= 99; $i++)
                                                     <option value="{{ $i }}"
@@ -201,16 +214,19 @@
                                             <label for="gender">বর বউ</label>
                                             <select class="hero-filter-dp form-select" name="gender" id="gender">
                                                 <option value="" selected="">নির্বাচন করুন </option>
-                                                <option value="1" {{ request()->get('gender') == 1 ? 'selected' : '' }}>বর
+                                                <option value="1"
+                                                    {{ request()->get('gender') == 1 ? 'selected' : '' }}>বর
                                                 </option>
-                                                <option value="2" {{ request()->get('gender') == 2 ? 'selected' : '' }}>বউ
+                                                <option value="2"
+                                                    {{ request()->get('gender') == 2 ? 'selected' : '' }}>বউ
                                                 </option>
                                             </select>
                                         </div>
 
                                         <div class="box cast">
                                             <label for="cast">বৈবাহিক অবস্থা</label>
-                                            <select class="hero-filter-dp form-select" name="marital_status" id="marital_status">
+                                            <select class="hero-filter-dp form-select" name="marital_status"
+                                                id="marital_status">
                                                 <option value="" selected="">নির্বাচন করুন </option>
                                                 @foreach ($maritalstatuses as $marital)
                                                     <option value="{{ $marital->id }}"
@@ -249,7 +265,8 @@
                                     <div class="group">
                                         <div class="box education">
                                             <label for="profession">পেশাগত যোগ্যতা</label>
-                                            <select class="hero-filter-dp form-select select2" name="profession" id="profession">
+                                            <select class="hero-filter-dp form-select select2" name="profession"
+                                                id="profession">
                                                 <option value="" selected="">নির্বাচন করুন </option>
                                                 @foreach ($professions as $profession)
                                                     <option value="{{ $profession->id }}"
@@ -341,79 +358,90 @@
                             @foreach ($members as $key => $value)
                                 <div class="col-sm-4">
                                     <div class="seach-item">
-                                        <a href="{{ route('member.details', $value->id) }}">
-                                            <div class="prof_image">
-                                                <div class="meter">
-                                                    <span style="width: 60%;">60% Match</span>
-                                                </div>
-                                                <div class="f-img">
+                                        <div class="prof_image">
+                                            <div class="meter">
+                                                <span style="width: 60%;">60% Match</span>
+                                            </div>
+                                            <div class="f-img">
+                                                <a href="{{ route('member.wishlist') }}?id={{ $value->id }}">
                                                     <img src="{{ asset($value->memberimage ? $value->memberimage->image_one : '') }}"
                                                         alt="" />
-                                                </div>
+                                                </a>
+                                            </div>
+                                            <div class="message-icon-wrapper">
+                                                <a href="{{ route('member.wishlist') }}?id={{ $value->id }}">
+                                                    <img src="{{ asset('public/frontEnd/images/contact-icon.png') }}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="member-info-top">
+                                            <div class="f-info">
+                                                <span class="member-id">রেজিস্ট্রেশন নাম্বারঃ <span
+                                                        class="count-number">{{ App\Converter\enandbn\BanglaConverter::en2bn($value->id) }}</span></span>
                                             </div>
                                             <div class="f-info">
-                                                <span class="member-id">আইডি নাম্বারঃ <span
-                                                        class="count-number">{{ App\Converter\enandbn\BanglaConverter::en2bn($value->id) }}</span></span>
+                                                <span class="name"> {{ $value->fullName ?? '' }}</span>
+                                            </div>
+                                            <div class="f-info">
+                                                <span class="member-id">
+                                                    {{ $value->careerinfo ? ($value->careerinfo->profession ? $value->careerinfo->profession->title : '') : '' }}</span>
+
+                                            </div>
+                                            <div class="f-info">
                                                 <span
-                                                    class="name">{{ $value->fullName ?? '' }}</span>
-
+                                                    class="member-id">{{ $value->educationinfo->education->title ?? 'Education' }}</span>
                                             </div>
-                                            <div class="person-info">
-                                                <div class="p-details">
-                                                    <ul>
-                                                        <li class="residence">
-                                                            <!--<p class="ml-text">বৈবাহিক অবস্থাঃ </p>-->
-                                                            <p class="st-text">
-                                                                {{ $value->basicinfo ? ($value->basicinfo->maritalstatus ? $value->basicinfo->maritalstatus->title : '') : '' }}
-                                                            </p>
-                                                        </li>
+                                        </div>
 
-                                                        <li class="residence">
-                                                            <!--<p class="ml-text">বয়সঃ </p>-->
-                                                            <p class="st-text">
-                                                                {{ App\Converter\enandbn\BanglaConverter::en2bn($value->basicinfo ? $value->basicinfo->age : '') }}
-                                                                বছর</p>
-                                                        </li>
+                                        <div class="person-info">
+                                            <div class="p-details">
+                                                <ul>
+                                                    <li class="residence">
+                                                        <!--<p class="ml-text">বৈবাহিক অবস্থাঃ </p>-->
+                                                        <p class="st-text">
+                                                            {{ $value->basicinfo ? ($value->basicinfo->maritalstatus ? $value->basicinfo->maritalstatus->title : '') : '' }}
+                                                        </p>
+                                                    </li>
 
-                                                        <li class="religion">
-                                                            <!--<p class="ml-text">ধর্মঃ</p>-->
-                                                            <p class="st-text">
-                                                                {{ $value->basicinfo ? $value->basicinfo->religion->title : '' }}
-                                                            </p>
-                                                        </li>
+                                                    <li class="residence">
+                                                        <!--<p class="ml-text">বয়সঃ </p>-->
+                                                        <p class="st-text">
+                                                            {{ App\Converter\enandbn\BanglaConverter::en2bn($value->basicinfo ? $value->basicinfo->age : '') }}
+                                                            বছর</p>
+                                                    </li>
 
-                                                        <li class="residence">
-                                                            <!--<p class="ml-text">পেশাঃ </p>-->
-                                                            <p class="st-text longest">
-                                                                {{ $value->careerinfo ? ($value->careerinfo->profession ? $value->careerinfo->profession->title : '') : '' }}
-                                                            </p>
-                                                        </li>
+                                                    <li class="religion">
+                                                        <!--<p class="ml-text">ধর্মঃ</p>-->
+                                                        <p class="st-text">
+                                                            {{ $value->basicinfo ? $value->basicinfo->religion->title : '' }}
+                                                        </p>
+                                                    </li>
 
+                                                    <li class="residence">
+                                                        <!--<p class="ml-text">পেশাঃ </p>-->
+                                                        <p class="st-text longest">
+                                                            {{ $value->basicinfo->district->title ?? '' }}
+                                                        </p>
+                                                    </li>
 
+                                                    <li class="religion">
+                                                        <!--<p class="ml-text">বিভাগঃ</p>-->
+                                                        <p class="st-text">
+                                                            {{ $value->basicinfo->division->title ?? '' }}</p>
+                                                    </li>
 
-                                                        <li class="religion">
-                                                            <!--<p class="ml-text">বিভাগঃ</p>-->
-                                                            <p class="st-text">
-                                                                {{ $value->basicinfo->division->title ?? '' }}</p>
-                                                        </li>
-
-
-                                                        <li class="residence">
-                                                            <!--<p class="ml-text">দেশঃ </p>-->
-                                                            <p class="st-text">
-                                                                {{ $value->basicinfo ? $value->basicinfo->recidency->title : '' }}
-                                                            </p>
-                                                        </li>
-
-
-
-                                                    </ul>
-                                                </div>
-
+                                                    <li class="residence">
+                                                        <!--<p class="ml-text">দেশঃ </p>-->
+                                                        <p class="st-text">
+                                                            {{ $value->basicinfo ? $value->basicinfo->recidency->title : '' }}
+                                                        </p>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
                                 </div>
+                                {{--
                                 @if ($key % 3 == 2)
                                     <div class="col-sm-12 my-4">
                                         <div class="google_ads text-center ">
@@ -430,6 +458,7 @@
                                         </div>
                                     </div>
                                 @endif
+                                --}}
                             @endforeach
                         </div>
                     </div>
@@ -671,17 +700,17 @@
         }
     </script>
     <script>
-            // JavaScript to display the device width
-            function displayDeviceWidth() {
-                const width = window.innerWidth;
-                document.getElementById('device-width').textContent = width;
-            }
-    
-            // Call the function on page load
-            displayDeviceWidth();
-    
-            // Optionally, update the width when the window is resized
-            window.addEventListener('resize', displayDeviceWidth);
-        </script>
+        // JavaScript to display the device width
+        function displayDeviceWidth() {
+            const width = window.innerWidth;
+            document.getElementById('device-width').textContent = width;
+        }
+
+        // Call the function on page load
+        displayDeviceWidth();
+
+        // Optionally, update the width when the window is resized
+        window.addEventListener('resize', displayDeviceWidth);
+    </script>
 
 @endsection

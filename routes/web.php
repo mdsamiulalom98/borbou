@@ -55,7 +55,7 @@ Route::get('/migrate', function () {
 
 // frontend routes
 Route::group(['namespace' => 'FrontEnd'], function () {
-    
+
     Route::get('/', [FrontEndController::class, 'home'])->name('home');
     Route::get('/adding', [FrontEndController::class, 'adding'])->name('adding');
     Route::get('/load-more', [FrontEndController::class, 'loadMorePosts'])->name('member.loadmore');
@@ -96,6 +96,16 @@ Route::group(['namespace' => 'FrontEnd'], function () {
     Route::any('member/download-pdf', [MemberController::class, 'download_pdf'])->name('member.download_pdf');
     Route::post('member/delete-pdf', [MemberController::class, 'delete_pdf'])->name('member.delete_pdf');
     Route::get('member/photos', [MemberController::class, 'photo_load'])->name('photos.load');
+
+    // message routes
+    Route::get('member/messages', [MemberController::class, 'message_page'])->name('member.messages');
+    Route::post('member/conversation/create', [MemberController::class, 'conversation_create'])->name('member.conversation.create');
+    Route::post('member/message/update', [MemberController::class, 'message_update'])->name('member.message.update');
+    Route::get('member/message/reload', [MemberController::class, 'message_reload'])->name('member.message.reload');
+    Route::get('member/message/header', [MemberController::class, 'message_header'])->name('member.message.header');
+    Route::post('member/message/active', [MemberController::class, 'message_active'])->name('member.message.active');
+    Route::post('member/message/remove-session', [MemberController::class, 'remove_session'])->name('member.remove.session');
+
 });
 
 Auth::routes();
@@ -121,6 +131,8 @@ Route::group(['namespace' => 'frontEnd', 'prefix' => 'member', 'middleware' => [
 
     Route::get('/payment-confirm', [DownloadController::class, 'payment_confirm'])->name('download.payment.confirm');
     Route::get('/download', [DownloadController::class, 'download'])->name('biodata.download');
+    Route::post('biodata-info', [DownloadController::class, 'biodata_details'])->name('biodata.download.page');
+    Route::get('wishlist', [MemberController::class, 'wishlist'])->name('member.wishlist');
 });
 
 // ajax routes
@@ -249,7 +261,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'lock'], 'prefix'
 
     // Route::get('profession/slugify', [ProfessionController::class, 'slugify'])->name('profession.slugify');
 
-    
+
     // complexion route
     Route::get('complexion/manage', [ComplexionController::class, 'index'])->name('complexion.index');
     Route::get('complexion/create', [ComplexionController::class, 'create'])->name('complexion.create');
@@ -270,7 +282,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'lock'], 'prefix'
     Route::post('bloodgroup/active', [BloodGroupController::class, 'active'])->name('bloodgroup.active');
     Route::post('bloodgroup/destroy', [BloodGroupController::class, 'destroy'])->name('bloodgroup.destroy');
 
-    
+
     // family value route
     Route::get('familyvalue/manage', [FamilyValueController::class, 'index'])->name('familyvalue.index');
     Route::get('familyvalue/create', [FamilyValueController::class, 'create'])->name('familyvalue.create');
@@ -375,7 +387,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'lock'], 'prefix'
     Route::post('working/destroy', [WorkingController::class, 'destroy'])->name('working.destroy');
 
     // Route::get('working/slugify', [WorkingController::class, 'slugify'])->name('working.slugify');
-    
+
     // height route
     Route::get('profileby/manage', [ProfileByController::class, 'index'])->name('profileby.index');
     Route::get('profileby/create', [ProfileByController::class, 'create'])->name('profileby.create');

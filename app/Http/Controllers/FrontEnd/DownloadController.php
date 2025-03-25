@@ -108,7 +108,7 @@ class DownloadController extends Controller
         if (!empty($request->all())) {
             $member = Member::where(['id' => $request->id])->select('id', 'fullName')->first();
             $basicInfo = BasicInfo::where(['member_id' => $member->id])->select('id', 'fullName', 'member_id')->first();
-    
+
             if (!$member || !$basicInfo) {
                 return response()->json([
                     'status' => 'error',
@@ -116,7 +116,7 @@ class DownloadController extends Controller
                 ], 400); // Bad Request
             }
             $exists = Cart::instance('wishlist')->content()->where('id', $member->id)->count();
-            if($exists == 1) {
+            if ($exists == 1) {
                 Toastr::error('তালিকায় যুক্ত রয়েছে');
             } else {
                 $qty = 1;
@@ -135,7 +135,7 @@ class DownloadController extends Controller
                 Toastr::success('তালিকায় যুক্ত হয়েছে ');
             }
         }
-        
+
         $data = Cart::instance('wishlist')->content();
         return view('frontEnd.download.wishlist', compact('data'));
     }
@@ -157,7 +157,7 @@ class DownloadController extends Controller
             Toastr::error('আপনার তালিকা খালি আছে ');
             return back();
         }
-        $data   = Cart::instance('payment')->content();
+        $data = Cart::instance('payment')->content();
         return view('frontEnd.download.payment', compact('data'));
     }
 
@@ -189,7 +189,7 @@ class DownloadController extends Controller
                 'discsount_amount' => 0,
                 'disc_percent' => 0,
                 'client_ip' => "https://borbou.com.bd/",
-                'customer_name' =>  $member->fullName,
+                'customer_name' => $member->fullName,
                 'customer_phone' => $member->phoneNumber,
                 'email' => "customer@shuvokaj.com",
                 'customer_address' => $basicInformation->present_address,
@@ -225,6 +225,25 @@ class DownloadController extends Controller
         $aboutmyself = AboutMyself::latest()->where('member_id', $member->id)->first();
         $logo = GeneralSetting::first();
         return view('frontEnd.download.pdf', compact('member', 'basicInfo', 'pdf_images', 'career', 'educations', 'family', 'logo', 'aboutmyself'));
+    }
+
+    public function biodata_details(Request $request)
+    {
+        $id = $request->id;
+        $member = Member::where(['id' => $id, 'status' => '1', 'publish' => 1])->first();
+        if(!$member) {
+            Toastr::error('মেম্বার এর ডাটা প্রাইভেট করা আছে।');
+            return redirect()->back();
+        }
+        $aboutmyself = AboutMyself::latest()->where('member_id', $id)->first();
+        $logo = GeneralSetting::first();
+        $basicInfo = BasicInfo::where('member_id', $member->id)->orderBy('id', 'ASC')->firstOrfail();
+        $image = Memberimage::where('member_id', $member->id)->first();
+        $career = EducationCareer::where('member_id', $member->id)->with('working', 'profession')->firstOrfail();
+        $educations = EducationValue::orderBy('degree_id', 'desc')->where('member_id', $member->id)->with('degree', 'degree.educationcat', 'education')->get();
+        // return $educations;
+        $familylocation = FamilyLocation::latest()->where('member_id', $member->id)->first();
+        return view('frontEnd.download.biodata', compact('member', 'basicInfo', 'career', 'educations', 'logo', 'aboutmyself',  'image', 'career', 'educations', 'familylocation'));
     }
 
     public function delete_pdf(Request $request)

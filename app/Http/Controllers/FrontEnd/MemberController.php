@@ -31,6 +31,8 @@ use App\Models\Memberimage;
 use App\Models\Monthname;
 use App\Models\GeneralSetting;
 use App\Models\OrderDetails;
+use App\Models\Conversation;
+use App\Models\Message;
 use DateTime;
 use PDF;
 
@@ -104,15 +106,15 @@ class MemberController extends Controller
         ]);
         $verifyToken = rand(1111, 9999);
 
-        $store_data                = new Member();
-        $store_data->fullName      = $request->fullName;
-        $store_data->phoneNumber   = $request->phoneNumber;
-        $store_data->gender        = $request->gender;
-        $store_data->verifyToken   = $verifyToken;
-        $store_data->account_type  = 1;
-        $store_data->status        = 0;
-        $store_data->publish       = 0;
-        $store_data->password      = bcrypt(request('password'));
+        $store_data = new Member();
+        $store_data->fullName = $request->fullName;
+        $store_data->phoneNumber = $request->phoneNumber;
+        $store_data->gender = $request->gender;
+        $store_data->verifyToken = $verifyToken;
+        $store_data->account_type = 1;
+        $store_data->status = 0;
+        $store_data->publish = 0;
+        $store_data->password = bcrypt(request('password'));
         $store_data->save();
 
         $bdate = $request->day;
@@ -131,50 +133,50 @@ class MemberController extends Controller
         $age = $ageInterval->y;
 
         // basic information
-        $store_basicinfo                    = new BasicInfo();
-        $store_basicinfo->member_id         = $store_data->id;
-        $store_basicinfo->fullName          = $request->fullName;
-        $store_basicinfo->nid_no            = $request->nid_no;
-        $store_basicinfo->passport_number   = $request->passport_number;
-        $store_basicinfo->birth_register    = $request->birth_register;
-        $store_basicinfo->children_no       = $request->children_no;
-        $store_basicinfo->marital_status    = $request->marital_status;
-        $store_basicinfo->nationality_id    = $request->nationality_id;
-        $store_basicinfo->residency_id      = $request->residency_id;
-        $store_basicinfo->country_id        = $request->country_id;
-        $store_basicinfo->religion_id       = $request->religion_id;
-        $store_basicinfo->gender            = $request->gender;
-        $store_basicinfo->feet              = $request->feet;
-        $store_basicinfo->inch              = $request->inch;
-        $store_basicinfo->complexion        = $request->complexion;
-        $store_basicinfo->dob               = $dateofbirth;
-        $store_basicinfo->age               = $age;
-        $store_basicinfo->division_id       = $request->division_id;
-        $store_basicinfo->district_id       = $request->district_id;
-        $store_basicinfo->upazila_id        = $request->upazila_id;
-        $store_basicinfo->present_address   = $request->present_address ? $request->present_address : $request->permanent_address;
+        $store_basicinfo = new BasicInfo();
+        $store_basicinfo->member_id = $store_data->id;
+        $store_basicinfo->fullName = $request->fullName;
+        $store_basicinfo->nid_no = $request->nid_no;
+        $store_basicinfo->passport_number = $request->passport_number;
+        $store_basicinfo->birth_register = $request->birth_register;
+        $store_basicinfo->children_no = $request->children_no;
+        $store_basicinfo->marital_status = $request->marital_status;
+        $store_basicinfo->nationality_id = $request->nationality_id;
+        $store_basicinfo->residency_id = $request->residency_id;
+        $store_basicinfo->country_id = $request->country_id;
+        $store_basicinfo->religion_id = $request->religion_id;
+        $store_basicinfo->gender = $request->gender;
+        $store_basicinfo->feet = $request->feet;
+        $store_basicinfo->inch = $request->inch;
+        $store_basicinfo->complexion = $request->complexion;
+        $store_basicinfo->dob = $dateofbirth;
+        $store_basicinfo->age = $age;
+        $store_basicinfo->division_id = $request->division_id;
+        $store_basicinfo->district_id = $request->district_id;
+        $store_basicinfo->upazila_id = $request->upazila_id;
+        $store_basicinfo->present_address = $request->present_address ? $request->present_address : $request->permanent_address;
         $store_basicinfo->save();
 
         // eduction and career information
-        $store_educationcareer                      = new EducationCareer();
-        $store_educationcareer->member_id           = $store_data->id;
-        $store_educationcareer->working_id          = $request->working_id;
-        $store_educationcareer->profession_id       = $request->profession_id;
-        $store_educationcareer->profession_details  = $request->profession_details;
+        $store_educationcareer = new EducationCareer();
+        $store_educationcareer->member_id = $store_data->id;
+        $store_educationcareer->working_id = $request->working_id;
+        $store_educationcareer->profession_id = $request->profession_id;
+        $store_educationcareer->profession_details = $request->profession_details;
         $store_educationcareer->save();
 
-        $saveeducation                  = new EducationValue();
-        $saveeducation->member_id       = $store_data->id;
-        $saveeducation->degree_id       = $request->degree_id;
-        $saveeducation->education_id    = $request->education_level;
-        $saveeducation->alt_degree      = $request->alt_degree;
+        $saveeducation = new EducationValue();
+        $saveeducation->member_id = $store_data->id;
+        $saveeducation->degree_id = $request->degree_id;
+        $saveeducation->education_id = $request->education_level;
+        $saveeducation->alt_degree = $request->alt_degree;
         $saveeducation->save();
 
         // member image information
 
         // image with intervention
         $image = $request->file('image_one');
-        $name =  time() . '-' . $image->getClientOriginalName();
+        $name = time() . '-' . $image->getClientOriginalName();
         $name = preg_replace('"\.(jpg|jpeg|png|webp)$"', '.webp', $name);
         $name = strtolower(preg_replace('/\s+/', '-', $name));
         $uploadpath = 'public/uploads/member/';
@@ -193,7 +195,7 @@ class MemberController extends Controller
 
         // image with intervention
         $image2 = $request->file('image_two');
-        $name2 =  time() . '-' . $image2->getClientOriginalName();
+        $name2 = time() . '-' . $image2->getClientOriginalName();
         $name2 = preg_replace('"\.(jpg|jpeg|png|webp)$"', '.webp', $name2);
         $name2 = strtolower(preg_replace('/\s+/', '-', $name2));
         $uploadpath2 = 'public/uploads/member/';
@@ -212,7 +214,7 @@ class MemberController extends Controller
 
         // image with intervention
         $image3 = $request->file('image_three');
-        $name3 =  time() . '-' . $image3->getClientOriginalName();
+        $name3 = time() . '-' . $image3->getClientOriginalName();
         $name3 = preg_replace('"\.(jpg|jpeg|png|webp)$"', '.webp', $name3);
         $name3 = strtolower(preg_replace('/\s+/', '-', $name3));
         $uploadpath3 = 'public/uploads/member/';
@@ -228,39 +230,39 @@ class MemberController extends Controller
         $img3->resizeCanvas($width3, $height3, 'center', false, '#ffffff');
         $img3->save($imageUrl3);
 
-        $store_memberimage               = new Memberimage();
-        $store_memberimage->member_id    = $store_data->id;
-        $store_memberimage->image_one    = $imageUrl;
-        $store_memberimage->image_two    = $imageUrl2;
-        $store_memberimage->image_three  = $imageUrl3;
+        $store_memberimage = new Memberimage();
+        $store_memberimage->member_id = $store_data->id;
+        $store_memberimage->image_one = $imageUrl;
+        $store_memberimage->image_two = $imageUrl2;
+        $store_memberimage->image_three = $imageUrl3;
         $store_memberimage->save();
 
-        $store_familylocation                        = new FamilyLocation();
-        $store_familylocation->member_id             = $store_data->id;
-        $store_familylocation->father_name           = $request->father_name;
-        $store_familylocation->alt_contact           = $request->alt_contact;
-        $store_familylocation->mother_name           = $request->mother_name;
-        $store_familylocation->division_id           = $request->division_id;
-        $store_familylocation->district_id           = $request->district_id;
-        $store_familylocation->upazila_id            = $request->upazila_id;
-        $store_familylocation->permanent_address     = $request->permanent_address;
+        $store_familylocation = new FamilyLocation();
+        $store_familylocation->member_id = $store_data->id;
+        $store_familylocation->father_name = $request->father_name;
+        $store_familylocation->alt_contact = $request->alt_contact;
+        $store_familylocation->mother_name = $request->mother_name;
+        $store_familylocation->division_id = $request->division_id;
+        $store_familylocation->district_id = $request->district_id;
+        $store_familylocation->upazila_id = $request->upazila_id;
+        $store_familylocation->permanent_address = $request->permanent_address;
         if ($request->same_address == 1) {
-            $store_familylocation->present_division      = $request->division_id;
-            $store_familylocation->present_district      = $request->district_id;
-            $store_familylocation->present_upazila       = $request->upazila_id;
-            $store_familylocation->present_address       = $request->permanent_address;
+            $store_familylocation->present_division = $request->division_id;
+            $store_familylocation->present_district = $request->district_id;
+            $store_familylocation->present_upazila = $request->upazila_id;
+            $store_familylocation->present_address = $request->permanent_address;
         } else {
-            $store_familylocation->present_division      = $request->present_division;
-            $store_familylocation->present_district      = $request->present_district;
-            $store_familylocation->present_upazila       = $request->present_upazila;
-            $store_familylocation->present_address       = $request->present_address;
+            $store_familylocation->present_division = $request->present_division;
+            $store_familylocation->present_district = $request->present_district;
+            $store_familylocation->present_upazila = $request->present_upazila;
+            $store_familylocation->present_address = $request->present_address;
         }
         $store_familylocation->save();
 
         // about myself data
-        $store_aboutme                    = new AboutMyself();
-        $store_aboutme->member_id         = $store_data->id;
-        $store_aboutme->description       = $request->description;
+        $store_aboutme = new AboutMyself();
+        $store_aboutme->member_id = $store_data->id;
+        $store_aboutme->description = $request->description;
         $store_aboutme->save();
 
         // member id put
@@ -290,7 +292,7 @@ class MemberController extends Controller
         Toastr::success('মোবাইল নাম্বারে কোড (ওটিপি)পাঠানো হয়েছে');
         return redirect()->route('verify_form');
     }
-    
+
     public function registermissingstore(Request $request)
     {
         $memberPhone = Member::where('phoneNumber', $request->phoneNumber)->first();
@@ -298,19 +300,19 @@ class MemberController extends Controller
             Toastr::error('ফোন নম্বর আগে থেকেই আছে', 'Error');
             return redirect()->back();
         }
-        
+
         $verifyToken = rand(1111, 9999);
 
-        $store_data                = new Member();
-        $store_data->id            = $request->id; 
-        $store_data->fullName      = $request->fullName;
-        $store_data->phoneNumber   = $request->phoneNumber;
-        $store_data->gender        = $request->gender;
-        $store_data->verifyToken   = $verifyToken;
-        $store_data->account_type  = 1;
-        $store_data->status        = 0;
-        $store_data->publish       = 0;
-        $store_data->password      = bcrypt(request('password'));
+        $store_data = new Member();
+        $store_data->id = $request->id;
+        $store_data->fullName = $request->fullName;
+        $store_data->phoneNumber = $request->phoneNumber;
+        $store_data->gender = $request->gender;
+        $store_data->verifyToken = $verifyToken;
+        $store_data->account_type = 1;
+        $store_data->status = 0;
+        $store_data->publish = 0;
+        $store_data->password = bcrypt(request('password'));
         $store_data->save();
 
         $bdate = $request->day;
@@ -329,50 +331,50 @@ class MemberController extends Controller
         $age = $ageInterval->y;
 
         // basic information
-        $store_basicinfo                    = new BasicInfo();
-        $store_basicinfo->member_id         = $store_data->id;
-        $store_basicinfo->fullName          = $request->fullName;
-        $store_basicinfo->nid_no            = $request->nid_no;
-        $store_basicinfo->passport_number   = $request->passport_number;
-        $store_basicinfo->birth_register    = $request->birth_register;
-        $store_basicinfo->children_no       = $request->children_no;
-        $store_basicinfo->marital_status    = $request->marital_status;
-        $store_basicinfo->nationality_id    = $request->nationality_id;
-        $store_basicinfo->residency_id      = $request->residency_id;
-        $store_basicinfo->country_id        = $request->country_id;
-        $store_basicinfo->religion_id       = $request->religion_id;
-        $store_basicinfo->gender            = $request->gender;
-        $store_basicinfo->feet              = $request->feet;
-        $store_basicinfo->inch              = $request->inch;
-        $store_basicinfo->complexion        = $request->complexion;
-        $store_basicinfo->dob               = $dateofbirth;
-        $store_basicinfo->age               = $age;
-        $store_basicinfo->division_id       = $request->division_id;
-        $store_basicinfo->district_id       = $request->district_id;
-        $store_basicinfo->upazila_id        = $request->upazila_id;
-        $store_basicinfo->present_address   = $request->present_address ? $request->present_address : $request->permanent_address;
+        $store_basicinfo = new BasicInfo();
+        $store_basicinfo->member_id = $store_data->id;
+        $store_basicinfo->fullName = $request->fullName;
+        $store_basicinfo->nid_no = $request->nid_no;
+        $store_basicinfo->passport_number = $request->passport_number;
+        $store_basicinfo->birth_register = $request->birth_register;
+        $store_basicinfo->children_no = $request->children_no;
+        $store_basicinfo->marital_status = $request->marital_status;
+        $store_basicinfo->nationality_id = $request->nationality_id;
+        $store_basicinfo->residency_id = $request->residency_id;
+        $store_basicinfo->country_id = $request->country_id;
+        $store_basicinfo->religion_id = $request->religion_id;
+        $store_basicinfo->gender = $request->gender;
+        $store_basicinfo->feet = $request->feet;
+        $store_basicinfo->inch = $request->inch;
+        $store_basicinfo->complexion = $request->complexion;
+        $store_basicinfo->dob = $dateofbirth;
+        $store_basicinfo->age = $age;
+        $store_basicinfo->division_id = $request->division_id;
+        $store_basicinfo->district_id = $request->district_id;
+        $store_basicinfo->upazila_id = $request->upazila_id;
+        $store_basicinfo->present_address = $request->present_address ? $request->present_address : $request->permanent_address;
         $store_basicinfo->save();
 
         // eduction and career information
-        $store_educationcareer                      = new EducationCareer();
-        $store_educationcareer->member_id           = $store_data->id;
-        $store_educationcareer->working_id          = $request->working_id;
-        $store_educationcareer->profession_id       = $request->profession_id;
-        $store_educationcareer->profession_details  = $request->profession_details;
+        $store_educationcareer = new EducationCareer();
+        $store_educationcareer->member_id = $store_data->id;
+        $store_educationcareer->working_id = $request->working_id;
+        $store_educationcareer->profession_id = $request->profession_id;
+        $store_educationcareer->profession_details = $request->profession_details;
         $store_educationcareer->save();
 
-        $saveeducation                  = new EducationValue();
-        $saveeducation->member_id       = $store_data->id;
-        $saveeducation->degree_id       = $request->degree_id;
-        $saveeducation->education_id    = $request->education_level;
-        $saveeducation->alt_degree      = $request->alt_degree;
+        $saveeducation = new EducationValue();
+        $saveeducation->member_id = $store_data->id;
+        $saveeducation->degree_id = $request->degree_id;
+        $saveeducation->education_id = $request->education_level;
+        $saveeducation->alt_degree = $request->alt_degree;
         $saveeducation->save();
 
         // member image information
 
         // image with intervention
         $image = $request->file('image_one');
-        $name =  time() . '-' . $image->getClientOriginalName();
+        $name = time() . '-' . $image->getClientOriginalName();
         $name = preg_replace('"\.(jpg|jpeg|png|webp)$"', '.webp', $name);
         $name = strtolower(preg_replace('/\s+/', '-', $name));
         $uploadpath = 'public/uploads/member/';
@@ -391,7 +393,7 @@ class MemberController extends Controller
 
         // image with intervention
         $image2 = $request->file('image_two');
-        $name2 =  time() . '-' . $image2->getClientOriginalName();
+        $name2 = time() . '-' . $image2->getClientOriginalName();
         $name2 = preg_replace('"\.(jpg|jpeg|png|webp)$"', '.webp', $name2);
         $name2 = strtolower(preg_replace('/\s+/', '-', $name2));
         $uploadpath2 = 'public/uploads/member/';
@@ -410,7 +412,7 @@ class MemberController extends Controller
 
         // image with intervention
         $image3 = $request->file('image_three');
-        $name3 =  time() . '-' . $image3->getClientOriginalName();
+        $name3 = time() . '-' . $image3->getClientOriginalName();
         $name3 = preg_replace('"\.(jpg|jpeg|png|webp)$"', '.webp', $name3);
         $name3 = strtolower(preg_replace('/\s+/', '-', $name3));
         $uploadpath3 = 'public/uploads/member/';
@@ -426,42 +428,42 @@ class MemberController extends Controller
         $img3->resizeCanvas($width3, $height3, 'center', false, '#ffffff');
         $img3->save($imageUrl3);
 
-        $store_memberimage               = new Memberimage();
-        $store_memberimage->member_id    = $store_data->id;
-        $store_memberimage->image_one    = $imageUrl;
-        $store_memberimage->image_two    = $imageUrl2;
-        $store_memberimage->image_three  = $imageUrl3;
+        $store_memberimage = new Memberimage();
+        $store_memberimage->member_id = $store_data->id;
+        $store_memberimage->image_one = $imageUrl;
+        $store_memberimage->image_two = $imageUrl2;
+        $store_memberimage->image_three = $imageUrl3;
         $store_memberimage->save();
 
-        $store_familylocation                        = new FamilyLocation();
-        $store_familylocation->member_id             = $store_data->id;
-        $store_familylocation->father_name           = $request->father_name;
-        $store_familylocation->alt_contact           = $request->alt_contact;
-        $store_familylocation->mother_name           = $request->mother_name;
-        $store_familylocation->division_id           = $request->division_id;
-        $store_familylocation->district_id           = $request->district_id;
-        $store_familylocation->upazila_id            = $request->upazila_id;
-        $store_familylocation->permanent_address     = $request->permanent_address;
+        $store_familylocation = new FamilyLocation();
+        $store_familylocation->member_id = $store_data->id;
+        $store_familylocation->father_name = $request->father_name;
+        $store_familylocation->alt_contact = $request->alt_contact;
+        $store_familylocation->mother_name = $request->mother_name;
+        $store_familylocation->division_id = $request->division_id;
+        $store_familylocation->district_id = $request->district_id;
+        $store_familylocation->upazila_id = $request->upazila_id;
+        $store_familylocation->permanent_address = $request->permanent_address;
         if ($request->same_address == 1) {
-            $store_familylocation->present_division      = $request->division_id;
-            $store_familylocation->present_district      = $request->district_id;
-            $store_familylocation->present_upazila       = $request->upazila_id;
-            $store_familylocation->present_address       = $request->permanent_address;
+            $store_familylocation->present_division = $request->division_id;
+            $store_familylocation->present_district = $request->district_id;
+            $store_familylocation->present_upazila = $request->upazila_id;
+            $store_familylocation->present_address = $request->permanent_address;
         } else {
-            $store_familylocation->present_division      = $request->present_division;
-            $store_familylocation->present_district      = $request->present_district;
-            $store_familylocation->present_upazila       = $request->present_upazila;
-            $store_familylocation->present_address       = $request->present_address;
+            $store_familylocation->present_division = $request->present_division;
+            $store_familylocation->present_district = $request->present_district;
+            $store_familylocation->present_upazila = $request->present_upazila;
+            $store_familylocation->present_address = $request->present_address;
         }
         $store_familylocation->save();
 
         // about myself data
-        $store_aboutme                    = new AboutMyself();
-        $store_aboutme->member_id         = $store_data->id;
-        $store_aboutme->description       = $request->description;
+        $store_aboutme = new AboutMyself();
+        $store_aboutme->member_id = $store_data->id;
+        $store_aboutme->description = $request->description;
         $store_aboutme->save();
 
-        
+
     }
 
     public function login(Request $request)
@@ -681,67 +683,67 @@ class MemberController extends Controller
 
 
         if (!empty($request->basicinfo) && is_numeric($request->basicinfo)) {
-            $update_basicinfo                = BasicInfo::find($request->basicinfo);
+            $update_basicinfo = BasicInfo::find($request->basicinfo);
         } else {
-            $update_basicinfo                = new BasicInfo();
+            $update_basicinfo = new BasicInfo();
         }
-        $update_basicinfo->member_id         = $memberId;
-        $update_basicinfo->fullName          = $request->fullName;
-        $update_basicinfo->nid_no            = $request->nid_no;
-        $update_basicinfo->passport_number   = $request->passport_number;
-        $update_basicinfo->birth_register    = $request->birth_register;
-        $update_basicinfo->children_no       = $request->children_no;
-        $update_basicinfo->marital_status    = $request->marital_status;
-        $update_basicinfo->nationality_id    = $request->nationality_id;
-        $update_basicinfo->residency_id      = $request->residency_id;
-        $update_basicinfo->country_id        = $request->country_id;
-        $update_basicinfo->religion_id       = $request->religion_id;
-        $update_basicinfo->gender            = $request->gender;
-        $update_basicinfo->feet              = $request->feet;
-        $update_basicinfo->inch              = $request->inch;
-        $update_basicinfo->complexion        = $request->complexion;
-        $update_basicinfo->dob               = $dateofbirth;
-        $update_basicinfo->age               = $age;
-        $update_basicinfo->division_id       = $request->division_id;
-        $update_basicinfo->district_id       = $request->district_id;
-        $update_basicinfo->upazila_id        = $request->upazila_id;
-        $update_basicinfo->present_address   = $request->present_address ? $request->present_address : $request->permanent_address;
+        $update_basicinfo->member_id = $memberId;
+        $update_basicinfo->fullName = $request->fullName;
+        $update_basicinfo->nid_no = $request->nid_no;
+        $update_basicinfo->passport_number = $request->passport_number;
+        $update_basicinfo->birth_register = $request->birth_register;
+        $update_basicinfo->children_no = $request->children_no;
+        $update_basicinfo->marital_status = $request->marital_status;
+        $update_basicinfo->nationality_id = $request->nationality_id;
+        $update_basicinfo->residency_id = $request->residency_id;
+        $update_basicinfo->country_id = $request->country_id;
+        $update_basicinfo->religion_id = $request->religion_id;
+        $update_basicinfo->gender = $request->gender;
+        $update_basicinfo->feet = $request->feet;
+        $update_basicinfo->inch = $request->inch;
+        $update_basicinfo->complexion = $request->complexion;
+        $update_basicinfo->dob = $dateofbirth;
+        $update_basicinfo->age = $age;
+        $update_basicinfo->division_id = $request->division_id;
+        $update_basicinfo->district_id = $request->district_id;
+        $update_basicinfo->upazila_id = $request->upazila_id;
+        $update_basicinfo->present_address = $request->present_address ? $request->present_address : $request->permanent_address;
         $update_basicinfo->save();
 
         // eduction and career information
         if (!empty($request->educationcareer) && is_numeric($request->educationcareer)) {
-            $update_educationcareer                    = EducationCareer::find($request->educationcareer);
+            $update_educationcareer = EducationCareer::find($request->educationcareer);
         } else {
-            $update_educationcareer                    = new EducationCareer();
+            $update_educationcareer = new EducationCareer();
         }
-        $update_educationcareer->member_id           = $memberId;
-        $update_educationcareer->working_id          = $request->working_id;
-        $update_educationcareer->profession_id       = $request->profession_id;
-        $update_educationcareer->profession_details  = $request->profession_details;
+        $update_educationcareer->member_id = $memberId;
+        $update_educationcareer->working_id = $request->working_id;
+        $update_educationcareer->profession_id = $request->profession_id;
+        $update_educationcareer->profession_details = $request->profession_details;
         $update_educationcareer->save();
 
         if (!empty($request->educationvalue) && is_numeric($request->educationvalue)) {
-            $update_ducation                    = EducationValue::find($request->educationvalue);
+            $update_ducation = EducationValue::find($request->educationvalue);
         } else {
-            $update_ducation                    = new EducationValue();
+            $update_ducation = new EducationValue();
         }
-        $update_ducation->member_id       = $memberId;
-        $update_ducation->degree_id       = $request->degree_id;
-        $update_ducation->education_id    = $request->education_level;
-        $update_ducation->alt_degree      = $request->alt_degree;
+        $update_ducation->member_id = $memberId;
+        $update_ducation->degree_id = $request->degree_id;
+        $update_ducation->education_id = $request->education_level;
+        $update_ducation->alt_degree = $request->alt_degree;
         $update_ducation->save();
 
         if (!empty($request->memberimage) && is_numeric($request->memberimage)) {
-            $update_memberimage                    = Memberimage::find($request->memberimage);
+            $update_memberimage = Memberimage::find($request->memberimage);
         } else {
-            $update_memberimage                    = new Memberimage();
+            $update_memberimage = new Memberimage();
         }
         // member image information
         $image = $request->file('image_one');
         if ($image) {
             // image with intervention
             $image = $request->file('image_one');
-            $name =  time() . '-' . $image->getClientOriginalName();
+            $name = time() . '-' . $image->getClientOriginalName();
             $name = preg_replace('"\.(jpg|jpeg|png|webp)$"', '.webp', $name);
             $name = strtolower(preg_replace('/\s+/', '-', $name));
             $uploadpath = 'public/uploads/member/';
@@ -765,7 +767,7 @@ class MemberController extends Controller
         if ($image2) {
             // image with intervention
             $image2 = $request->file('image_two');
-            $name2 =  time() . '-' . $image2->getClientOriginalName();
+            $name2 = time() . '-' . $image2->getClientOriginalName();
             $name2 = preg_replace('"\.(jpg|jpeg|png|webp)$"', '.webp', $name2);
             $name2 = strtolower(preg_replace('/\s+/', '-', $name2));
             $uploadpath2 = 'public/uploads/member/';
@@ -789,7 +791,7 @@ class MemberController extends Controller
         if ($image3) {
             // image with intervention
             $image3 = $request->file('image_three');
-            $name3 =  time() . '-' . $image3->getClientOriginalName();
+            $name3 = time() . '-' . $image3->getClientOriginalName();
             $name3 = preg_replace('"\.(jpg|jpeg|png|webp)$"', '.webp', $name3);
             $name3 = strtolower(preg_replace('/\s+/', '-', $name3));
             $uploadpath3 = 'public/uploads/member/';
@@ -808,52 +810,52 @@ class MemberController extends Controller
             $imageUrl3 = $update_memberimage->image_three;
         }
 
-        $update_memberimage->member_id    = $memberId;
-        $update_memberimage->image_one    = $imageUrl;
-        $update_memberimage->image_two    = $imageUrl2;
-        $update_memberimage->image_three  = $imageUrl3;
+        $update_memberimage->member_id = $memberId;
+        $update_memberimage->image_one = $imageUrl;
+        $update_memberimage->image_two = $imageUrl2;
+        $update_memberimage->image_three = $imageUrl3;
         $update_memberimage->save();
 
 
         if (!empty($request->familylocation) && is_numeric($request->familylocation)) {
-            $update_familylocation                    = FamilyLocation::find($request->familylocation);
+            $update_familylocation = FamilyLocation::find($request->familylocation);
         } else {
-            $update_familylocation                    = new FamilyLocation();
+            $update_familylocation = new FamilyLocation();
         }
-        $update_familylocation->member_id             = $memberId;
-        $update_familylocation->father_name           = $request->father_name;
-        $update_familylocation->mother_name           = $request->mother_name;
-        $update_familylocation->alt_contact           = $request->alt_contact;
-        $update_familylocation->division_id           = $request->division_id;
-        $update_familylocation->district_id           = $request->district_id;
-        $update_familylocation->upazila_id            = $request->upazila_id;
-        $update_familylocation->permanent_address     = $request->permanent_address;
+        $update_familylocation->member_id = $memberId;
+        $update_familylocation->father_name = $request->father_name;
+        $update_familylocation->mother_name = $request->mother_name;
+        $update_familylocation->alt_contact = $request->alt_contact;
+        $update_familylocation->division_id = $request->division_id;
+        $update_familylocation->district_id = $request->district_id;
+        $update_familylocation->upazila_id = $request->upazila_id;
+        $update_familylocation->permanent_address = $request->permanent_address;
         if ($request->same_address == 1) {
-            $update_familylocation->present_division      = $request->division_id;
-            $update_familylocation->present_district      = $request->district_id;
-            $update_familylocation->present_upazila       = $request->upazila_id;
-            $update_familylocation->present_address       = $request->permanent_address;
+            $update_familylocation->present_division = $request->division_id;
+            $update_familylocation->present_district = $request->district_id;
+            $update_familylocation->present_upazila = $request->upazila_id;
+            $update_familylocation->present_address = $request->permanent_address;
         } else {
-            $update_familylocation->present_division      = $request->present_division;
-            $update_familylocation->present_district      = $request->present_district;
-            $update_familylocation->present_upazila       = $request->present_upazila;
-            $update_familylocation->present_address       = $request->present_address;
+            $update_familylocation->present_division = $request->present_division;
+            $update_familylocation->present_district = $request->present_district;
+            $update_familylocation->present_upazila = $request->present_upazila;
+            $update_familylocation->present_address = $request->present_address;
         }
         $update_familylocation->save();
 
         // about myself data
 
-        $update_aboutme                        = AboutMyself::find($request->aboutme);
+        $update_aboutme = AboutMyself::find($request->aboutme);
         if ($update_aboutme) {
-            $update_aboutme->member_id         = $memberId;
-            $update_aboutme->description       = $request->description;
+            $update_aboutme->member_id = $memberId;
+            $update_aboutme->description = $request->description;
             $update_aboutme->save();
         } else {
             $update_aboutme = AboutMyself::firstOrCreate([
                 'member_id' => $memberId,
             ], [
-                'member_id'         => $memberId,
-                'description'       => $request->description
+                'member_id' => $memberId,
+                'description' => $request->description
             ]);
         }
 
@@ -866,7 +868,7 @@ class MemberController extends Controller
     {
         $delete_image = Memberimage::find($id);
         File::delete($delete_image->image_one);
-        $delete_image->image_one  = NULL;
+        $delete_image->image_one = NULL;
         $delete_image->save();
         return response()->json($delete_image);
     }
@@ -875,7 +877,7 @@ class MemberController extends Controller
     {
         $delete_image = Memberimage::find($id);
         File::delete($delete_image->image_two);
-        $delete_image->image_two  = NULL;
+        $delete_image->image_two = NULL;
         $delete_image->save();
 
         return response()->json($delete_image);
@@ -885,7 +887,7 @@ class MemberController extends Controller
     {
         $delete_image = Memberimage::find($id);
         File::delete($delete_image->image_three);
-        $delete_image->image_three  = NULL;
+        $delete_image->image_three = NULL;
         $delete_image->save();
 
         return response()->json($delete_image);
@@ -962,7 +964,7 @@ class MemberController extends Controller
             'discsount_amount' => 0,
             'disc_percent' => 0,
             'client_ip' => "https://borbou.com.bd/",
-            'customer_name' =>  Auth::guard('member')->user()->fullName ?? 'Customer',
+            'customer_name' => Auth::guard('member')->user()->fullName ?? 'Customer',
             'customer_phone' => Auth::guard('member')->user()->phoneNumber ?? '01700000000',
             'email' => "customer@shuvokaj.com",
             'customer_address' => "Nimnagar, Balubari, Dinajpur",
@@ -995,7 +997,7 @@ class MemberController extends Controller
             'discsount_amount' => 0,
             'disc_percent' => 0,
             'client_ip' => "https://borbou.com.bd/",
-            'customer_name' =>  Auth::guard('member')->user()->fullName ?? 'Customer',
+            'customer_name' => Auth::guard('member')->user()->fullName ?? 'Customer',
             'customer_phone' => Auth::guard('member')->user()->phoneNumber ?? '01700000000',
             'email' => "customer@shuvokaj.com",
             'customer_address' => "Nimnagar, Balubari, Dinajpur",
@@ -1026,7 +1028,7 @@ class MemberController extends Controller
             Toastr::error('এই সদস্যের তথ্য মুছে ফেলা হয়েছে');
             return redirect()->back();
         }
-        $basicInfo = BasicInfo::where('member_id', $member->id)->latest()->with('maritalstatus', 'religion',  'country', 'nationality', 'recidency')->first();
+        $basicInfo = BasicInfo::where('member_id', $member->id)->latest()->with('maritalstatus', 'religion', 'country', 'nationality', 'recidency')->first();
         $pdf_image = Memberimage::where('member_id', $member->id)->first();
         $career = EducationCareer::latest()->where('member_id', $member->id)->with('working', 'profession')->firstOrfail();
         $educations = EducationValue::orderBy('degree_id', 'desc')->latest()->where('member_id', $member->id)->with('degree', 'degree.educationcat')->get();
@@ -1048,5 +1050,95 @@ class MemberController extends Controller
     {
         Auth::guard('member')->logout();
         return redirect()->route('member.login');
+    }
+
+    public function conversation_create(Request $request)
+    {
+        Session::forget('messages');
+        if (!Auth::guard('member')->check()) {
+            return response()->json(['success' => false, 'status' => 'unlogged', 'message' => 'আগে লগিন করুন।']);
+        }
+
+        if (Auth::guard('member')->user()->publish != 1) {
+            return response()->json(['success' => false, 'status' => 'unpublished', 'message' => 'আপনার একাউন্ট টি পাবলিশ হয়নি']);
+        }
+
+        $loggedInMemberId = Auth::guard('member')->user()->id;
+        $memberTwoId = $request->id;
+
+        $conversation = Conversation::where(function ($query) use ($loggedInMemberId, $memberTwoId) {
+            $query->where('member_one_id', $loggedInMemberId)
+                ->where('member_two_id', $memberTwoId);
+        })->orWhere(function ($query) use ($loggedInMemberId, $memberTwoId) {
+            $query->where('member_one_id', $memberTwoId)
+                ->where('member_two_id', $loggedInMemberId);
+        })->first();
+
+        if (!$conversation) {
+            $conversation = Conversation::create([
+                'member_one_id' => $loggedInMemberId,
+                'member_two_id' => $memberTwoId,
+            ]);
+        }
+
+        Session::put('conversation_id', $conversation->id);
+        $idList = collect(session('conversations', []));
+        $idList = $idList->push($conversation->id)->unique()->values();
+        Session::put('conversations', $idList->toArray());
+        $messages = Message::where(['conversation_id' => $conversation->id])->limit(8)->get();
+        Session::put('messages', $messages);
+        return response()->json(['success' => true, 'conversation' => $conversation]);
+    }
+
+    public function message_reload(Request $request)
+    {
+        $conversation = Conversation::where(['id' => $request->id])->first();
+        $messages = Message::where(['conversation_id' => $conversation->id])->limit(8)->get();
+        Session::put('messages', $messages);
+        return view('frontEnd.layouts.ajax.messages', compact('conversation'));
+    }
+    public function message_header(Request $request)
+    {
+        $conversation = Conversation::where(['id' => $request->id])->with('member_one', 'member_two')->first();
+        $loggedInMemberId = Auth::guard('member')->user()->id;
+        $record = Conversation::where('member_one_id', $loggedInMemberId)->first();
+        $conversationMemberImage = $record
+            ? $conversation->member_two->memberimage->image_one
+            : $conversation->member_one->memberimage->image_one;
+        return view('frontEnd.layouts.ajax.messagehead', compact('conversation', 'record', 'conversationMemberImage'));
+    }
+
+    public function message_update(Request $request)
+    {
+        $conversation = Conversation::where(['id' => $request->id])->first();
+        $senderId = Auth::guard('member')->user()->id;
+        $messageContent = $request->messageContent;
+        $conversation->messages()->create([
+            'sender_id' => $senderId,
+            'content' => $messageContent,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $messages = Message::where(['conversation_id' => $conversation->id])->limit(8)->get();
+        Session::put('messages', $messages);
+        return response()->json(['success' => true, 'conversation' => $conversation]);
+    }
+    public function remove_session()
+    {
+        Session::forget('conversation_id');
+        return response()->json(['success' => true]);
+    }
+
+    public function message_page(Request $request) {
+        $loggedInMemberId = Auth::guard('member')->user()->id;
+
+        $conversations = Conversation::where(function ($query) use ($loggedInMemberId) {
+            $query->where('member_one_id', $loggedInMemberId);
+        })->orWhere(function ($query) use ($loggedInMemberId) {
+            $query->where('member_two_id', $loggedInMemberId);
+        })->get();
+        // $conversations = Conversation::all();
+        // return $conversations;
+        return view('frontEnd.member.messages', compact('conversations'));
     }
 }

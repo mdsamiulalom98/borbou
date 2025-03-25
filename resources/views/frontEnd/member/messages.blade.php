@@ -2,6 +2,9 @@
 @section('title', '')
 @section('content')
     @include('frontEnd.layouts.navigation')
+    @php
+        $memberId = Auth::guard('member')->user()->id;
+    @endphp
     <div id="content" class="full-sections">
         <div class="container middle-content back-none pad-none" style="padding-top: 30px;">
             <div class="main-content" style="padding-bottom: 30px;">
@@ -17,16 +20,9 @@
                                     <div class="">
 
                                         <div class="py-2">
-                                            @foreach ($datas as $key => $value)
+                                            @foreach ($conversations as $key => $value)
                                                 @php
-                                                    $memberId = \App\Models\Member::where(
-                                                        'id',
-                                                        $value->member_id,
-                                                    )->first()->id;
-                                                    $memberImage = \App\Models\Memberimage::where(
-                                                        'member_id',
-                                                        $memberId,
-                                                    )->first()->image_one;
+
                                                 @endphp
                                                 <div class="col-sm-12" style="padding-left: 12px; padding-right: 12px;">
                                                     <div class="personal-box" style="margin-bottom: 12px;">
@@ -44,7 +40,7 @@
                                                             <div>
                                                                 <div class="d-flex justify-content-between">
                                                                     <img style="width: 60px;text-align: center;border-radius: 5px;background: #fff;padding: 1px;height: 60px;display: inline-block;border: 4px solid;border-color: #ffcc00;"
-                                                                        src="{{ asset($memberImage) }}">
+                                                                        src="">
                                                                     <span
                                                                         style="margin: 15px auto 10px;display: block;font-weight: 600;text-align: center;">{{ $value->name }}</span>
                                                                 </div>
@@ -65,13 +61,14 @@
                                                                     </form>
 
 
-                                                                    <button type="button" data-id="{{ $value->member_id }}" class="member-conversation"
+                                                                    <button type="submit" data-id="{{ $value->member_one_id == $memberId ?  $value->member_two_id : $value->member_one_id }}"
+                                                                        class="member-conversation"
                                                                         style="outline: none; border: none;background: none;">
                                                                         <i class="fa-brands fa-facebook-messenger"
                                                                             style="color: #ffcc00"></i>
                                                                         <span
                                                                             style="background-color: #ffcc00;color: #000000;padding: 2px 10px;padding-top: 6px;border-radius: 15px;font-weight: 600;min-width: 80px;"
-                                                                            class="d-block">মেসেজ করুন </span>
+                                                                            class="d-block">মেসেজ করুন {{ $value->member_one_id == $memberId ?  $value->member_two_id : $value->member_one_id }} == {{ $memberId }} </span>
                                                                     </button>
 
                                                                     <form
