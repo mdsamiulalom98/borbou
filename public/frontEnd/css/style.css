@@ -5013,13 +5013,21 @@ section.how_register_sec {
 
 .message-popup-inner {
     width: 400px;
-    background-color: red;
+    background-color: #fff;
 }
 
 .message-popup-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 5px;
+    background-color: #fff1b9;
+}
+
+.message-popup-header button {
+    background-color: transparent;
+    outline: none;
+    border: none;
 }
 
 .message-popup-header .left {
@@ -5046,6 +5054,10 @@ section.how_register_sec {
     font-family: 'Potro Sans Bangla', sans-serif;
     font-size: 18px;
     font-weight: 600;
+}
+
+.message-popup-header .right {
+    display: none;
 }
 
 .message-popup-body {
@@ -5094,7 +5106,7 @@ section.how_register_sec {
     width: 100%;
     height: 45px;
     border-radius: 35px;
-    background-color: #c52727;
+    background-color: #fff1b9;
     padding-left: 20px;
 }
 
@@ -5111,7 +5123,7 @@ section.how_register_sec {
 }
 
 .message-popup-control .inner .submit button:hover {
-    background-color: #c52727;
+    background-color: #fff1b9;
 }
 
 li.message-wrapper {
@@ -5144,12 +5156,12 @@ li.message-wrapper .avatar img {
 
 
 li.message-wrapper .content p {
-    background-color: white;
+    background-color: #ffcc00;
     padding: 10px 20px;
     border-radius: 30px;
     font-size: 1rem;
     font-weight: 600;
-    color: green;
+    color: #002a3a;
 }
 
 

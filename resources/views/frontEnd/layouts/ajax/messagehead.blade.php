@@ -1,4 +1,9 @@
 <div class="left">
+    <div class="back">
+        <button class="message-back-button">
+            <i class="fa fa-arrow-left"></i>
+        </button>
+    </div>
     <div class="image">
         <img src="{{ asset($conversationMemberImage ?? '') }}">
     </div>

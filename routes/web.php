@@ -98,7 +98,6 @@ Route::group(['namespace' => 'FrontEnd'], function () {
     Route::get('member/photos', [MemberController::class, 'photo_load'])->name('photos.load');
 
     // message routes
-    Route::get('member/messages', [MemberController::class, 'message_page'])->name('member.messages');
     Route::post('member/conversation/create', [MemberController::class, 'conversation_create'])->name('member.conversation.create');
     Route::post('member/message/update', [MemberController::class, 'message_update'])->name('member.message.update');
     Route::get('member/message/reload', [MemberController::class, 'message_reload'])->name('member.message.reload');
@@ -133,6 +132,8 @@ Route::group(['namespace' => 'frontEnd', 'prefix' => 'member', 'middleware' => [
     Route::get('/download', [DownloadController::class, 'download'])->name('biodata.download');
     Route::post('biodata-info', [DownloadController::class, 'biodata_details'])->name('biodata.download.page');
     Route::get('wishlist', [MemberController::class, 'wishlist'])->name('member.wishlist');
+    // messages
+    Route::get('messages', [MemberController::class, 'message_page'])->name('member.messages');
 });
 
 // ajax routes

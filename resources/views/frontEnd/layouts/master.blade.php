@@ -48,8 +48,8 @@
     <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/assets/libs/dropify/css/dropify.min.css" />
     <link href="{{ asset('public/backEnd/') }}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/assets/css/toastr.min.css" />
-    <link rel="stylesheet" href="{{ asset('public/frontEnd/') }}/css/style.css?v=2.0.80" />
-    <link rel="stylesheet" href="{{ asset('public/frontEnd/') }}/css/responsive.css?v=2.0.97" />
+    <link rel="stylesheet" href="{{ asset('public/frontEnd/') }}/css/style.css?v=2.0.81" />
+    <link rel="stylesheet" href="{{ asset('public/frontEnd/') }}/css/responsive.css?v=2.0.98" />
     <meta name="facebook-domain-verification" content="dk4jtrup3sgo73epggz3kbdauuqrhh" />
 
     <!-- Facebook and Google Tags -->
@@ -100,16 +100,16 @@
     <!-- bottom navigation part starts -->
     <div class="menu-container">
         <div class="inner">
-            <div class="menu-item {{ Route::is('contact') ? 'active' : '' }} active-red"
-                data-url="{{ route('contact') }}">
-                <a href="{{ route('contact') }}">
-                    <i class="fa-solid fa-phone-volume"></i>
-                </a>
-            </div>
-            <div class="menu-item  active-yellow" id="filterButton">
+
+            <div class="menu-item  active-red" id="filterButton">
                 <i class="fa-solid fa-filter"></i>
             </div>
-
+            <div class="menu-item {{ Route::is('contact') ? 'active' : '' }} active-yellow"
+                data-url="{{ route('member.messages') }}">
+                <a href="{{ route('member.messages') }}">
+                    <i class="fa-solid fa-message"></i>
+                </a>
+            </div>
             <div class="menu-item {{ Route::is('home') ? 'active' : '' }} active-red" data-url="{{ route('home') }}"
                 id="homeLink">
                 <a href="{{ route('home') }}">
@@ -117,10 +117,10 @@
                 </a>
             </div>
 
-            <div class="menu-item {{ Route::is('wishlist') ? 'active' : '' }} active-yellow"
-                data-url="{{ route('wishlist') }}">
-                <a href="{{ route('wishlist') }}" class="wishlist-link-button">
-                    <span id="wishCount">@include('frontEnd.layouts.ajax.wishcount')</span>
+            <div class="menu-item {{ Route::is('member.wishlist') ? 'active' : '' }} active-yellow"
+                data-url="{{ route('member.wishlist') }}">
+                <a href="{{ route('member.wishlist') }}" class="wishlist-link-button">
+                    <span class="wishCount">@include('frontEnd.layouts.ajax.wishcount')</span>
                     <i class="fa-solid fa-star"></i>
                 </a>
             </div>
@@ -142,14 +142,14 @@
             @endif
         </div>
         <div class="inner">
-            <div class="menu-item {{ Route::is('contact') ? 'active' : '' }} active-red"
-                data-url="{{ route('contact') }}">
-                <a href="{{ route('contact') }}">
-                    <p>সাপোর্ট</p>
-                </a>
-            </div>
-            <div class="menu-item  active-yellow" id="filterButton">
+            <div class="menu-item  active-yellow">
                 <p>ফিল্টার</p>
+            </div>
+            <div class="menu-item {{ Route::is('contact') ? 'active' : '' }} active-red"
+                data-url="{{ route('member.messages') }}">
+                <a href="{{ route('member.messages') }}">
+                    <p>যোগাযোগ</p>
+                </a>
             </div>
 
             <div class="menu-item {{ Route::is('home') ? 'active' : '' }} active-red" data-url="{{ route('home') }}"
@@ -159,10 +159,10 @@
                 </a>
             </div>
 
-            <div class="menu-item {{ Route::is('wishlist') ? 'active' : '' }} active-yellow"
-                data-url="{{ route('wishlist') }}">
-                <a href="{{ route('wishlist') }}" class="wishlist-link-button">
-                    <p>ডাউনলোড</p>
+            <div class="menu-item {{ Route::is('member.wishlist') ? 'active' : '' }} active-yellow"
+                data-url="{{ route('member.wishlist') }}">
+                <a href="{{ route('member.wishlist') }}" class="wishlist-link-button">
+                    <p>বায়োডাটা</p>
                 </a>
             </div>
 
@@ -177,12 +177,13 @@
                 <div class="menu-item {{ Route::is('member.login') ? 'active' : '' }} active-red"
                     data-url="{{ route('member.login') }}">
                     <a href="{{ route('member.login') }}">
-                        <p>লগইন</p>
+                        <p>লগিন</p>
                     </a>
                 </div>
             @endif
         </div>
     </div>
+
     <!-- bottom navigation part ends -->
     @yield('content')
     @if (url()->current() != route('home'))
