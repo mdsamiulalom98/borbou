@@ -134,6 +134,7 @@ Route::group(['namespace' => 'frontEnd', 'prefix' => 'member', 'middleware' => [
     Route::get('wishlist', [MemberController::class, 'wishlist'])->name('member.wishlist');
     // messages
     Route::get('messages', [MemberController::class, 'message_page'])->name('member.messages');
+    Route::get('conversation/{id}', [MemberController::class, 'conversation'])->name('member.conversation');
 });
 
 // ajax routes
@@ -249,7 +250,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'lock'], 'prefix'
     Route::post('religion/active', [ReligionController::class, 'active'])->name('religion.active');
     Route::post('religion/destroy', [ReligionController::class, 'destroy'])->name('religion.destroy');
 
-
     // profession route
     Route::get('profession/manage', [ProfessionController::class, 'index'])->name('profession.index');
     Route::get('profession/create', [ProfessionController::class, 'create'])->name('profession.create');
@@ -259,9 +259,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'lock'], 'prefix'
     Route::post('profession/inactive', [ProfessionController::class, 'inactive'])->name('profession.inactive');
     Route::post('profession/active', [ProfessionController::class, 'active'])->name('profession.active');
     Route::post('profession/destroy', [ProfessionController::class, 'destroy'])->name('profession.destroy');
-
-    // Route::get('profession/slugify', [ProfessionController::class, 'slugify'])->name('profession.slugify');
-
 
     // complexion route
     Route::get('complexion/manage', [ComplexionController::class, 'index'])->name('complexion.index');
@@ -284,15 +281,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'lock'], 'prefix'
     Route::post('bloodgroup/destroy', [BloodGroupController::class, 'destroy'])->name('bloodgroup.destroy');
 
 
-    // family value route
-    Route::get('familyvalue/manage', [FamilyValueController::class, 'index'])->name('familyvalue.index');
-    Route::get('familyvalue/create', [FamilyValueController::class, 'create'])->name('familyvalue.create');
-    Route::post('familyvalue/save', [FamilyValueController::class, 'store'])->name('familyvalue.store');
-    Route::get('familyvalue/{id}/edit', [FamilyValueController::class, 'edit'])->name('familyvalue.edit');
-    Route::post('familyvalue/update', [FamilyValueController::class, 'update'])->name('familyvalue.update');
-    Route::post('familyvalue/inactive', [FamilyValueController::class, 'inactive'])->name('familyvalue.inactive');
-    Route::post('familyvalue/active', [FamilyValueController::class, 'active'])->name('familyvalue.active');
-    Route::post('familyvalue/destroy', [FamilyValueController::class, 'destroy'])->name('familyvalue.destroy');
 
     // religious value route
     Route::get('religiousvalue/manage', [ReligiousValueController::class, 'index'])->name('religiousvalue.index');
@@ -303,46 +291,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'lock'], 'prefix'
     Route::post('religiousvalue/inactive', [ReligiousValueController::class, 'inactive'])->name('religiousvalue.inactive');
     Route::post('religiousvalue/active', [ReligiousValueController::class, 'active'])->name('religiousvalue.active');
     Route::post('religiousvalue/destroy', [ReligiousValueController::class, 'destroy'])->name('religiousvalue.destroy');
-
-    // food habit route
-    Route::get('foodhabit/manage', [FoodHabitController::class, 'index'])->name('foodhabit.index');
-    Route::get('foodhabit/create', [FoodHabitController::class, 'create'])->name('foodhabit.create');
-    Route::post('foodhabit/save', [FoodHabitController::class, 'store'])->name('foodhabit.store');
-    Route::get('foodhabit/{id}/edit', [FoodHabitController::class, 'edit'])->name('foodhabit.edit');
-    Route::post('foodhabit/update', [FoodHabitController::class, 'update'])->name('foodhabit.update');
-    Route::post('foodhabit/inactive', [FoodHabitController::class, 'inactive'])->name('foodhabit.inactive');
-    Route::post('foodhabit/active', [FoodHabitController::class, 'active'])->name('foodhabit.active');
-    Route::post('foodhabit/destroy', [FoodHabitController::class, 'destroy'])->name('foodhabit.destroy');
-
-    // drinking habit route
-    Route::get('drinkinghabit/manage', [DrinkingHabitController::class, 'index'])->name('drinkinghabit.index');
-    Route::get('drinkinghabit/create', [DrinkingHabitController::class, 'create'])->name('drinkinghabit.create');
-    Route::post('drinkinghabit/save', [DrinkingHabitController::class, 'store'])->name('drinkinghabit.store');
-    Route::get('drinkinghabit/{id}/edit', [DrinkingHabitController::class, 'edit'])->name('drinkinghabit.edit');
-    Route::post('drinkinghabit/update', [DrinkingHabitController::class, 'update'])->name('drinkinghabit.update');
-    Route::post('drinkinghabit/inactive', [DrinkingHabitController::class, 'inactive'])->name('drinkinghabit.inactive');
-    Route::post('drinkinghabit/active', [DrinkingHabitController::class, 'active'])->name('drinkinghabit.active');
-    Route::post('drinkinghabit/destroy', [DrinkingHabitController::class, 'destroy'])->name('drinkinghabit.destroy');
-
-    // smoke habit route
-    Route::get('smokehabit/manage', [SmokeHabitController::class, 'index'])->name('smokehabit.index');
-    Route::get('smokehabit/create', [SmokeHabitController::class, 'create'])->name('smokehabit.create');
-    Route::post('smokehabit/save', [SmokeHabitController::class, 'store'])->name('smokehabit.store');
-    Route::get('smokehabit/{id}/edit', [SmokeHabitController::class, 'edit'])->name('smokehabit.edit');
-    Route::post('smokehabit/update', [SmokeHabitController::class, 'update'])->name('smokehabit.update');
-    Route::post('smokehabit/inactive', [SmokeHabitController::class, 'inactive'])->name('smokehabit.inactive');
-    Route::post('smokehabit/active', [SmokeHabitController::class, 'active'])->name('smokehabit.active');
-    Route::post('smokehabit/destroy', [SmokeHabitController::class, 'destroy'])->name('smokehabit.destroy');
-
-    // sport route
-    Route::get('sport/manage', [SportController::class, 'index'])->name('sport.index');
-    Route::get('sport/create', [SportController::class, 'create'])->name('sport.create');
-    Route::post('sport/save', [SportController::class, 'store'])->name('sport.store');
-    Route::get('sport/{id}/edit', [SportController::class, 'edit'])->name('sport.edit');
-    Route::post('sport/update', [SportController::class, 'update'])->name('sport.update');
-    Route::post('sport/inactive', [SportController::class, 'inactive'])->name('sport.inactive');
-    Route::post('sport/active', [SportController::class, 'active'])->name('sport.active');
-    Route::post('sport/destroy', [SportController::class, 'destroy'])->name('sport.destroy');
 
     // country route
     Route::get('country/manage', [CountryController::class, 'index'])->name('country.index');

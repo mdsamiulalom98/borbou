@@ -1129,7 +1129,8 @@ class MemberController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function message_page(Request $request) {
+    public function message_page(Request $request)
+    {
         $loggedInMemberId = Auth::guard('member')->user()->id;
 
         $conversations = Conversation::where(function ($query) use ($loggedInMemberId) {
@@ -1139,6 +1140,23 @@ class MemberController extends Controller
         })->get();
         // $conversations = Conversation::all();
         // return $conversations;
-        return view('frontEnd.member.messages', compact('conversations'));
+        $datas = OrderDetails::where(['status' => 1, 'visitor_id'=> $loggedInMemberId])->get();
+        return view('frontEnd.member.messages', compact('conversations', 'datas'));
+    }
+
+    public function conversation($id)
+    {
+        $loggedInMemberId = Auth::guard('member')->user()->id;
+        $conversation = Conversation::where(['id' => $id])->first();
+        if (!$conversation) {
+            return redirect()->back();
+        }
+        $messages = Message::where(['conversation_id' => $conversation->id])->get();
+        Session::put('messages', $messages);
+        $record = Conversation::where('member_one_id', $loggedInMemberId)->first();
+        $conversationMemberImage = $record
+            ? $conversation->member_two->memberimage->image_one
+            : $conversation->member_one->memberimage->image_one;
+        return view('frontEnd.member.conversation', compact('conversation', 'messages', 'record', 'conversationMemberImage'));
     }
 }

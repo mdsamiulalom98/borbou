@@ -5,65 +5,85 @@
     @php
         $memberId = Auth::guard('member')->user()->id;
     @endphp
-    <div id="content" class="full-sections">
-        <div class="container middle-content back-none pad-none" style="padding-top: 30px;">
-            <div class="main-content" style="padding-bottom: 30px;">
-                <div class="main-content-inner">
-                    <div class="page-content">
-                        <div class="login-form back-leaf-white shadow">
-                            <div class="login-padding-ma"
-                                style="padding: 0px;padding-top: 15px;padding-bottom: 5px;max-width: 400px;margin: 0px auto;">
-                                <div style="text-align: center;">
-                                    <h5 class="account-title mb-1">বায়োডাটা তালিকা </h5>
-                                </div>
-                                <div class="table-responsive">
-                                    <div class="">
-
-                                        <div class="py-2">
-                                            @foreach ($conversations as $key => $value)
-                                                <div class="col-sm-12" style="padding-left: 12px; padding-right: 12px;">
-                                                    <div class="personal-box" style="margin-bottom: 12px;">
-                                                        <div class="personali_item_title">
-                                                            <div class="p_icon">
-                                                                <i class="fa-solid fa-star"></i>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="personal_item_content">
-                                                            <div>
-                                                                <div class="d-flex justify-content-between">
-                                                                    <img style="width: 60px;text-align: center;border-radius: 5px;background: #fff;padding: 1px;height: 60px;display: inline-block;border: 4px solid;border-color: #ffcc00;"
-                                                                        src="">
-                                                                    <span
-                                                                        style="margin: 15px auto 10px;display: block;font-weight: 600;text-align: center;">{{ $value->name }}</span>
-                                                                </div>
-
-                                                                <div class="d-flex justify-content-evenly mt-3">
-                                                                    <button type="submit" data-id="{{ $value->member_one_id == $memberId ? $value->member_two_id : $value->member_one_id }}"
-                                                                        class="member-conversation"
-                                                                        style="outline: none; border: none;background: none;">
-                                                                        <i class="fa-brands fa-facebook-messenger"
-                                                                            style="color: #ffcc00"></i>
-                                                                        <span
-                                                                            style="background-color: #ffcc00;color: #000000;padding: 2px 10px;padding-top: 6px;border-radius: 15px;font-weight: 600;min-width: 80px;"
-                                                                            class="d-block">মেসেজ করুন {{ $value->member_one_id == $memberId ?  $value->member_two_id : $value->member_one_id }} == {{ $memberId }} </span>
-                                                                    </button>
-
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="message-page-wrapper">
+        <div class="message-page-header">
+            <h3>মেসেজ</h3>
+        </div>
+        <div class="message-page-body">
+            @if ($conversations->isEmpty())
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <p>কোনো বার্তা নেই</p>
                     </div>
                 </div>
-            </div>
+            @else
+                <div class="row">
+                    @foreach ($conversations as $key => $value)
+                            <div class="message-item col-sm-12 ">
+                                <div class="message-wrapper" data-id="{{ $value->id }}">
+                                    <div class="image">
+                                        <img
+                                            src="{{ asset($value->member_one->id == $memberId ? $value->member_two->image : $value->member_one->image) }}">
+                                    </div>
+                                    <div class="content">
+                                        <h3>{{ $value->member_one->id == $memberId ? $value->member_two->fullName : $value->member_one->fullName }}
+                                        </h3>
+                                        <p>{{ $value->lastMessage ? $value->lastMessage->content : '' }}</p>
+                                    </div>
+                                </div>
+                                @php
+                                    $date = Carbon\Carbon::parse($value->lastMessage->created_at);
+                                @endphp
+                                <div class="message-action">
+                                    <p>
+                                        @if ($date->isToday())
+                                            {{ $date->diffForHumans() }}
+                                        @elseif ($date->isYesterday())
+                                            Yesterday
+                                        @elseif ($date->isCurrentYear())
+                                            {{ $date->format('g:i A') }}
+                                        @else
+                                            {{ $date->format('n/j/y') }}
+                                        @endif
+                                    </p>
+                                </div>
+
+                            </div>
+
+                    @endforeach
+                    @foreach ($datas as $key => $value)
+                            @php
+                                $memberId = \App\Models\Member::where(
+                                    'id',
+                                    $value->member_id,
+                                )->first()->id;
+                                $memberImage = \App\Models\Memberimage::where(
+                                    'member_id',
+                                    $memberId,
+                                )->first()->image_one;
+                            @endphp
+                            <div class="message-item col-sm-12 ">
+                                <div class="message-wrapper" data-id="{{ $value->id }}">
+                                    <div class="image">
+                                        <img src="{{ asset($memberImage) }}">
+                                    </div>
+                                    <div class="content">
+                                        <h3>{{ $value->name }}
+                                        </h3>
+                                        <p>kono message nai</p>
+                                    </div>
+                                </div>
+                                <div class="message-action">
+                                    <button class="message-action-button" data-id="{{ $value->id }}">
+                                        <i class="fa fa-message"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                    @endforeach
+                </div>
+            @endif
         </div>
+
     </div>
 @endsection

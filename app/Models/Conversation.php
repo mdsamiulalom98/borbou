@@ -28,4 +28,13 @@ class Conversation extends Model
         return $this->hasOne(Member::class, 'id', 'member_two_id')->select('id', 'fullName', 'phoneNumber', 'image');
     }
 
+    public function lastMessage()
+    {
+        return $this->hasOne(Message::class)->latest();
+    }
+    public function lastMessageSender()
+    {
+        return $this->hasOne(Message::class)->latest()->select('sender_id');
+    }
+
 }
