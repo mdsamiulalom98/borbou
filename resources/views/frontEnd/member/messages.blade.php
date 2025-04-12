@@ -19,67 +19,75 @@
             @else
                 <div class="row">
                     @foreach ($conversations as $key => $value)
-                            <div class="message-item col-sm-12 ">
-                                <div class="message-wrapper" data-id="{{ $value->id }}">
-                                    <div class="image">
-                                        <img
-                                            src="{{ asset($value->member_one->id == $memberId ? $value->member_two->image : $value->member_one->image) }}">
+                            <a href="{{ route('member.conversation', $value->id) }}">
+                                <div class="message-item {{ $value->unreadMessagesCount > 0 ? 'unread' : '' }}">
+                                    <div class="message-wrapper" data-id="{{ $value->id }}">
+                                        <div class="image">
+                                            <img
+                                                src="{{ asset($value->member_one_id == $memberId ? $value->member_two->memberimage->image_one : $value->member_one->memberimage->image_one) }}">
+                                        </div>
+                                        <div class="content">
+                                            <h3>{{ $value->member_one->id == $memberId ? $value->member_two->fullName : $value->member_one->fullName }}
+                                            </h3>
+                                            <p>{{ $value->lastMessage ? $value->lastMessage->content : '' }}</p>
+                                        </div>
                                     </div>
-                                    <div class="content">
-                                        <h3>{{ $value->member_one->id == $memberId ? $value->member_two->fullName : $value->member_one->fullName }}
-                                        </h3>
-                                        <p>{{ $value->lastMessage ? $value->lastMessage->content : '' }}</p>
+                                    @php
+                                        $date = Carbon\Carbon::parse($value->lastMessage?->created_at);
+                                    @endphp
+                                    <div class="message-action">
+                                        <p>
+                                            @if ($value->messages->count() > 0)
+                                                <span class="badge badge-danger">{{ $value->unreadMessagesCount }}</span>
+                                                @if ($date->diffInSeconds(now()) < 60)
+                                                    {{ $date->diffInSeconds(now()) }} seconds ago
+                                                @elseif($date->diffInHours(now()) < 1)
+                                                    {{ $date->diffInMinutes(now()) }} minutes ago
+                                                @elseif($date->diffInDays(now()) < 1)
+                                                    {{ $date->diffInHours(now()) }} hours ago
+                                                @elseif($date->diffInDays(now()) < 7)
+                                                    {{ $date->diffInDays(now()) }} days ago
+                                                @elseif($date->diffInWeeks(now()) < 4)
+                                                    {{ $date->diffInWeeks(now()) }} weeks ago
+                                                @elseif($date->diffInMonths(now()) < 12)
+                                                    {{ $date->diffInMonths(now()) }} months ago
+                                                @elseif($date->diffInYears(now()) < 1)
+                                                    {{ $date->diffInYears(now()) }} years ago
+                                                @endif
+                                            @endif
+                                        </p>
                                     </div>
                                 </div>
-                                @php
-                                    $date = Carbon\Carbon::parse($value->lastMessage->created_at);
-                                @endphp
-                                <div class="message-action">
-                                    <p>
-                                        @if ($date->isToday())
-                                            {{ $date->diffForHumans() }}
-                                        @elseif ($date->isYesterday())
-                                            Yesterday
-                                        @elseif ($date->isCurrentYear())
-                                            {{ $date->format('g:i A') }}
-                                        @else
-                                            {{ $date->format('n/j/y') }}
-                                        @endif
-                                    </p>
-                                </div>
-
-                            </div>
-
+                            </a>
                     @endforeach
                     @foreach ($datas as $key => $value)
-                            @php
-                                $memberId = \App\Models\Member::where(
-                                    'id',
-                                    $value->member_id,
-                                )->first()->id;
-                                $memberImage = \App\Models\Memberimage::where(
-                                    'member_id',
-                                    $memberId,
-                                )->first()->image_one;
-                            @endphp
-                            <div class="message-item col-sm-12 ">
-                                <div class="message-wrapper" data-id="{{ $value->id }}">
-                                    <div class="image">
-                                        <img src="{{ asset($memberImage) }}">
+                            <div>
+                                @php
+                                    $memberId = \App\Models\Member::where('id', $value->member_id)->first()->id;
+                                    $memberImage = \App\Models\Memberimage::where('member_id', $memberId)->first()->image_one;
+                                @endphp
+                                <div class="message-item ">
+                                    <div class="message-wrapper" data-id="{{ $value->id }}">
+                                        <div class="image">
+                                            <img src="{{ asset($memberImage) }}">
+                                        </div>
+                                        <div class="content">
+                                            <h3>{{ $value->name }}
+                                            </h3>
+                                            <p>kono message nai</p>
+                                        </div>
                                     </div>
-                                    <div class="content">
-                                        <h3>{{ $value->name }}
-                                        </h3>
-                                        <p>kono message nai</p>
+                                    <div class="message-action">
+                                        <form action="{{ route('create.coversation') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="member_id" value="{{ $value->member_id }}">
+                                            <button class="message-action-button btn btn-primary" type="submit">
+                                                <i class="fa fa-message"></i>
+                                            </button>
+                                        </form>
                                     </div>
-                                </div>
-                                <div class="message-action">
-                                    <button class="message-action-button" data-id="{{ $value->id }}">
-                                        <i class="fa fa-message"></i>
-                                    </button>
                                 </div>
                             </div>
-
                     @endforeach
                 </div>
             @endif

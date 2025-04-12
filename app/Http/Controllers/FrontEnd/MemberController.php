@@ -1090,6 +1090,14 @@ class MemberController extends Controller
         return response()->json(['success' => true, 'conversation' => $conversation]);
     }
 
+    public function create_conversation(Request $request) {
+        $conversation = Conversation::create([
+            'member_one_id' => Auth::guard('member')->user()->id,
+            'member_two_id' => $request->member_id,
+        ]);
+        return redirect()->route('member.conversation', $conversation->id);
+    }
+
     public function message_reload(Request $request)
     {
         $conversation = Conversation::where(['id' => $request->id])->first();
@@ -1132,7 +1140,15 @@ class MemberController extends Controller
     public function message_page(Request $request)
     {
         $loggedInMemberId = Auth::guard('member')->user()->id;
-
+        $otherMemberIds = Conversation::where(function ($query) use ($loggedInMemberId) {
+            $query->where('member_one_id', $loggedInMemberId)
+                  ->orWhere('member_two_id', $loggedInMemberId);
+        })->get()->map(function ($conversation) use ($loggedInMemberId) {
+            return $conversation->member_one_id == $loggedInMemberId
+                ? $conversation->member_two_id
+                : $conversation->member_one_id;
+        })->unique()->values()->toArray();
+        // return $otherMemberIds;
         $conversations = Conversation::where(function ($query) use ($loggedInMemberId) {
             $query->where('member_one_id', $loggedInMemberId);
         })->orWhere(function ($query) use ($loggedInMemberId) {
@@ -1140,7 +1156,8 @@ class MemberController extends Controller
         })->get();
         // $conversations = Conversation::all();
         // return $conversations;
-        $datas = OrderDetails::where(['status' => 1, 'visitor_id'=> $loggedInMemberId])->get();
+        $datas = OrderDetails::where(['status' => 1, 'visitor_id'=> $loggedInMemberId])->whereNotIn('member_id', $otherMemberIds)->get();
+        // return $datas;
         return view('frontEnd.member.messages', compact('conversations', 'datas'));
     }
 

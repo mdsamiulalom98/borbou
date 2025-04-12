@@ -135,6 +135,7 @@ Route::group(['namespace' => 'frontEnd', 'prefix' => 'member', 'middleware' => [
     // messages
     Route::get('messages', [MemberController::class, 'message_page'])->name('member.messages');
     Route::get('conversation/{id}', [MemberController::class, 'conversation'])->name('member.conversation');
+    Route::post('create/conversation', [MemberController::class, 'create_conversation'])->name('create.coversation');
 });
 
 // ajax routes

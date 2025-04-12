@@ -954,33 +954,67 @@
     }
 
     .message-page-header {
-        background-color: #ddd;
+        background-color: #ffcc00;
         margin: 0;
         padding: 0;
     }
 
     .message-page-header h3 {
         font-family: 'Potro Sans Bangla', serif;
+        margin: 0;
+        padding: 10px;
+        color: #002a3a;
+        font-weight: 600;
+        font-size: 24px;
     }
 
     .message-item {
         display: flex;
         justify-content: space-between;
+        padding: 10px;
+        border-top: 1px solid;
+        border-color: #ddd;
+    }
+
+    .message-item:hover {
+        background-color: #f7f7f7;
     }
 
     .message-wrapper {
-        padding: 10px;
-        margin-bottom: 10px;
         display: flex;
         align-items: flex-start;
+        gap: 10px;
+        flex: 1 1 auto;
+    }
+
+    .message-wrapper .image {
+        flex: 0 0 45px;
+        height: 45px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .message-wrapper .image img {
-        height: 40px;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
     }
 
     .message-wrapper .content h3 {
-        font-size: 16px;
+        font-size: 18px;
         margin: 0;
+        font-weight: 600;
+        font-family: 'Potro Sans Bangla', serif;
+        line-height: 25px;
+    }
+
+    .message-action {
+        flex: 0 0 95px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
 }
