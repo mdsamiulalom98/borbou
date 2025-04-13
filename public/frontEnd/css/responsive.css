@@ -1011,10 +1011,27 @@
         line-height: 25px;
     }
 
+    .message-wrapper .content p {
+        font-size: 14px;
+        color: #b7b7b7;
+    }
+
+    .message-wrapper .content p.unseen {
+        font-size: 14px;
+        color: #002a3a;
+        font-weight: 600;
+    }
+
     .message-action {
         flex: 0 0 95px;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: flex-end;
+    }
+
+    .message-action p {
+        font-size: 14px;
+        margin: 0;
+        color: #b7b7b7;
     }
 }

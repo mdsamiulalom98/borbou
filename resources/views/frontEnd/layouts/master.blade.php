@@ -457,7 +457,7 @@
     @endphp
     <span class="d-none">{{ request()->ip() }} </span>
 
-    @if (Auth::guard('member')->user())
+    {{-- @if (Auth::guard('member')->user())
         @php
             $conversation_id = Session::get('conversation_id');
             $has_conversation = Session::has('conversation_id');
@@ -499,7 +499,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
     <!-- script part -->
     <!-- bootstrap script -->
@@ -547,8 +547,8 @@
         $(document).ready(function() {
             $("#scroll-down-animation").click(function() {
                 // Check the screen width
-                let scrollTarget = window.innerWidth < 400 ? 600 :
-                    520; // Adjust the scrollTop values as needed
+                let scrollTarget = window.innerWidth < 400 ? 600 : 520; // Adjust the scroll target based on screen width
+                // Scroll to the target position
 
                 $("html, body").animate({
                     scrollTop: scrollTarget
@@ -622,12 +622,7 @@
             }
         }); //missing );
 
-        function openTab(targetTab, tabName, evt) {
-            $("." + tabName + " .tabcontent").removeClass('show');
-            $("." + tabName + " #" + targetTab).addClass('show');
-            $('.' + tabName + ' .tablinks').removeClass('active');
-            evt.currentTarget.className += " active";
-        }
+
 
         // Slider Initialization--------------
         var featureSlide = new Swiper(".featureSlide", {
@@ -875,20 +870,7 @@
                     },
                 });
             }
-            // message-header
-            function message_header(id) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{ route('member.message.header') }}",
-                    data: {
-                        id: id,
-                    },
-                    dataType: "html",
-                    success: function(data) {
-                        $(".message-popup-header").html(data);
-                    },
-                });
-            }
+
 
             let globalConversationId = null; // 🔥 Store globally
 
@@ -943,32 +925,7 @@
                 });
             });
 
-            $(document).on('click', '.message-send', function(e) {
-                e.preventDefault();
-                const id = $(this).data('id');
-                const messageContent = $('.message-content').val();
-                $.ajax({
-                    url: '{{ route('member.message.update') }}',
-                    type: 'POST',
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        id: id,
-                        messageContent: messageContent,
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            let conversationId = response.conversation.id;
-                            $('.message-content').val('');
-                            return message_toggle(conversationId);
-                        } else {
-                            alert(response.message || 'Failed to update cart');
-                        }
-                    },
-                    error: function() {
-                        alert('An error occurred while updating the cart.');
-                    },
-                });
-            });
+
             // remove session
             $(document).on('click', '.message-close-button', function(e) {
                 e.preventDefault();

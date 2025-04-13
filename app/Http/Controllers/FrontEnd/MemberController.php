@@ -1168,7 +1168,10 @@ class MemberController extends Controller
         if (!$conversation) {
             return redirect()->back();
         }
+        Session::put('conversation_id', $conversation->id);
+        Message::where(['conversation_id' => $conversation->id, 'sender_id' => $loggedInMemberId])->update(['is_read' => 1]);
         $messages = Message::where(['conversation_id' => $conversation->id])->get();
+
         Session::put('messages', $messages);
         $record = Conversation::where('member_one_id', $loggedInMemberId)->first();
         $conversationMemberImage = $record

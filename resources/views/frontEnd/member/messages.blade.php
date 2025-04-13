@@ -29,7 +29,7 @@
                                         <div class="content">
                                             <h3>{{ $value->member_one->id == $memberId ? $value->member_two->fullName : $value->member_one->fullName }}
                                             </h3>
-                                            <p>{{ $value->lastMessage ? $value->lastMessage->content : '' }}</p>
+                                            <p class="{{ $value->lastMessage?->is_read == 0 ? 'unseen' : '' }}">{{ $value->lastMessage ? $value->lastMessage->content : '' }}</p>
                                         </div>
                                     </div>
                                     @php
