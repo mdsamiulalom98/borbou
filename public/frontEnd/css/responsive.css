@@ -76,7 +76,7 @@
     /* filter */
 
     .master-filter {
-        left: -100%;
+        left: -110%;
         position: fixed;
         transition: all 0.3s ease;
         top: 0;
@@ -935,103 +935,4 @@
         padding-left: 12px;
     }
 
-    .message-popup-wrapper {
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: none;
-    }
-
-    .message-popup-inner {
-        width: 100%;
-    }
-
-    .message-popup-body {
-        height: calc(100vh - 190px);
-        overflow: auto;
-        padding: 10px;
-    }
-
-    .message-page-header {
-        background-color: #ffcc00;
-        margin: 0;
-        padding: 0;
-    }
-
-    .message-page-header h3 {
-        font-family: 'Potro Sans Bangla', serif;
-        margin: 0;
-        padding: 10px;
-        color: #002a3a;
-        font-weight: 600;
-        font-size: 24px;
-    }
-
-    .message-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-        border-top: 1px solid;
-        border-color: #ddd;
-    }
-
-    .message-item:hover {
-        background-color: #f7f7f7;
-    }
-
-    .message-wrapper {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        flex: 1 1 auto;
-    }
-
-    .message-wrapper .image {
-        flex: 0 0 45px;
-        height: 45px;
-        border-radius: 50%;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .message-wrapper .image img {
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
-    }
-
-    .message-wrapper .content h3 {
-        font-size: 18px;
-        margin: 0;
-        font-weight: 600;
-        font-family: 'Potro Sans Bangla', serif;
-        line-height: 25px;
-    }
-
-    .message-wrapper .content p {
-        font-size: 14px;
-        color: #b7b7b7;
-    }
-
-    .message-wrapper .content p.unseen {
-        font-size: 14px;
-        color: #002a3a;
-        font-weight: 600;
-    }
-
-    .message-action {
-        flex: 0 0 95px;
-        display: flex;
-        align-items: flex-start;
-        justify-content: flex-end;
-    }
-
-    .message-action p {
-        font-size: 14px;
-        margin: 0;
-        color: #b7b7b7;
-    }
 }

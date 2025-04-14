@@ -885,6 +885,7 @@ p.st-text {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 1;
+    line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 
@@ -1983,8 +1984,6 @@ section.search {
     padding-left: 4%;
     font-weight: 500;
 }
-
-.personal-list {}
 
 .personal-box {
     display: flex;
@@ -5020,8 +5019,13 @@ section.how_register_sec {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px;
-    background-color: #fff1b9;
+    padding: 7px;
+    background-color: #ffcc00;
+    padding-left: 10px;
+    border-radius: 0px 0px 5px 5px;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 .message-popup-header button {
@@ -5039,8 +5043,8 @@ section.how_register_sec {
 .message-popup-header .left .image {
     overflow: hidden;
     border-radius: 50%;
-    height: 32px;
-    width: 32px;
+    height: 33px;
+    width: 33px;
 }
 
 .message-popup-header .left .image img {
@@ -5087,13 +5091,18 @@ section.how_register_sec {
 }
 
 .message-popup-control {
-    padding: 10px;
+    padding: 6px;
+    padding-left: 18px;
+    position: fixed;
+    bottom: 80px;
+    z-index: 1000000;
+    background-color: #fff;
+    width: 100%;
 }
 
 .message-popup-control .inner {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
 }
 
 .message-popup-control .inner .input {
@@ -5106,11 +5115,9 @@ section.how_register_sec {
     width: 100%;
     height: 45px;
     border-radius: 35px;
-    background-color: #fff1b9;
+    background-color: #ffcc00;
     padding-left: 20px;
 }
-
-.message-popup-control .inner .submit {}
 
 .message-popup-control .inner .submit button {
     border: none;
@@ -5120,6 +5127,7 @@ section.how_register_sec {
     height: 100%;
     width: 50px;
     justify-content: center;
+    color: #2a3a00;
 }
 
 .message-popup-control .inner .submit button:hover {
@@ -5130,7 +5138,7 @@ li.message-wrapper {
     display: flex;
     column-gap: 10px;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 li.message-wrapper.member {
@@ -5154,16 +5162,125 @@ li.message-wrapper .avatar img {
     object-fit: cover;
 }
 
-
 li.message-wrapper .content p {
     background-color: #ffcc00;
     padding: 10px 20px;
     border-radius: 30px;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 500;
     color: #002a3a;
+    max-width: 250px;
 }
 
+
+.message-popup-wrapper {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.message-popup-inner {
+    width: 100%;
+}
+
+.message-popup-body {
+    height: calc(100vh - 190px);
+    overflow: auto;
+    padding: 5px 18px;
+    padding-top: 0;
+    margin-top: 56px;
+}
+
+.message-page-header {
+    background-color: #ffcc00;
+    margin: 0;
+    padding: 0;
+    border-radius: 0px 0px 5px 5px;
+    overflow: hidden;
+}
+
+.message-page-header h3 {
+    font-family: 'Potro Sans Bangla', serif;
+    margin: 0;
+    padding: 10px;
+    color: #002a3a;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.message-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid;
+    border-color: #ddd;
+}
+
+.message-item:hover {
+    background-color: #f7f7f7;
+}
+
+.message-item-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex: 1 1 auto;
+}
+
+.message-item-wrapper .image {
+    flex: 0 0 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-item-wrapper .image img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.message-item-wrapper .content h3 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+    font-family: 'Potro Sans Bangla', serif;
+    line-height: 25px;
+}
+
+.message-item-wrapper .content p {
+    font-size: 14px;
+    color: #6b6b6b;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.message-item-wrapper .content p.unseen {
+    font-size: 14px;
+    color: #002a3a;
+    font-weight: 600;
+}
+
+.message-action {
+    flex: 0 0 95px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.message-action p {
+    font-size: 14px;
+    margin: 0;
+    color: #6b6b6b;
+}
 
 .upload-btn {
     display: inline-block;
