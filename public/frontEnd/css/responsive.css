@@ -21,6 +21,16 @@
 }
 
 @media screen and (max-width: 520px) {
+    .message-popup-header {
+        top: 0;
+    }
+    .message-popup-control {
+        bottom: 80px;
+    }
+    .message-popup-body {
+        margin-top: 60px;
+        height: calc(100vh - 205px);
+    }
     .profile-image {
         width: 100%;
         padding: 20px;
@@ -619,6 +629,11 @@
 
     .info-item-header>h2 {
         text-align: center;
+    }
+    
+    .message-page-wrapper {
+        margin-top: 0px;
+        width: 100%;
     }
 
 }

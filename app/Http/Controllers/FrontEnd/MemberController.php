@@ -1114,10 +1114,69 @@ class MemberController extends Controller
 
     public function message_reload(Request $request)
     {
-        $conversation = Conversation::where(['id' => $request->id])->first();
-        $messages = Message::where(['conversation_id' => $conversation->id])->limit(8)->get();
-        Session::put('messages', $messages);
-        return view('frontEnd.layouts.ajax.messages', compact('conversation'));
+        $conversation = Conversation::find($request->id);
+        if (!$conversation) {
+            return response()->json(['status' => 'no_update']);
+        }
+
+        $lastMessageId = $request->input('last_message_id');
+        if ($lastMessageId) {
+            $pagination = Message::where('conversation_id', $conversation->id)
+                ->where('id', '<', $lastMessageId)
+                ->orderBy('id', 'desc')
+                ->simplePaginate(8);
+
+            $messages = collect($pagination->items())->reverse()->values();
+
+            if ($messages->isEmpty()) {
+                return response()->json(['status' => 'no_update']);
+            }
+
+            $updatedHtml = view('frontEnd.layouts.ajax.messages', [
+                'messages' => $messages,
+                'conversation' => $conversation
+            ])->render();
+
+            return response()->json([
+                'status' => 'update',
+                'updatedHtml' => $updatedHtml,
+                'next_page_url' => $pagination->nextPageUrl(), // optional
+            ]);
+        }
+        $lastId = $request->input('last_id', 1);
+
+        $newMessages = Message::where('conversation_id', $conversation->id)
+            ->where('id', '>', $lastId)
+            ->orderBy('id', 'asc')
+            ->get();
+
+        if ($newMessages->isEmpty()) {
+            return response()->json([
+                'status' => 'no_update'
+            ]);
+        }
+        $query = Message::where('conversation_id', $conversation->id);
+        if ($lastMessageId) {
+            $query->where('id', '<', $lastMessageId); // load older messages only
+        }
+
+        $messages = $query->orderBy('id', 'desc')
+            ->limit(8)   // limit to last 8
+            ->get()
+            ->reverse() // then reverse collection to get original (oldest to newest) order
+            ->values(); // reindex the collection
+
+        $updatedHtml = view('frontEnd.layouts.ajax.messages', [
+            'messages' => $messages,
+            'conversation' => $conversation
+        ])->render();
+
+        $newLastId = $newMessages->last()->id ?? $lastId;
+        return response()->json([
+            'status' => 'update',
+            'updatedHtml' => $updatedHtml,
+            'last_id' => $newLastId,
+        ]);
     }
     public function message_header(Request $request)
     {
@@ -1134,15 +1193,23 @@ class MemberController extends Controller
     {
         $conversation = Conversation::where(['id' => $request->id])->first();
         $senderId = Auth::guard('member')->user()->id;
+        $receiverId = $conversation->member_one_id == $senderId
+            ? $conversation->member_two_id
+            : $conversation->member_one_id;
         $messageContent = $request->messageContent;
         $conversation->messages()->create([
             'sender_id' => $senderId,
+            'receiver_id' => $receiverId,
             'content' => $messageContent,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $messages = Message::where(['conversation_id' => $conversation->id])->limit(8)->get();
-        Session::put('messages', $messages);
+        $messages = Message::where('conversation_id', $conversation->id)
+            ->latest() // order by created_at descending
+            ->limit(8)
+            ->get()
+            ->reverse() // reverse the collection to get oldest to newest
+            ->values(); // reset keys if needed
         return response()->json(['success' => true, 'conversation' => $conversation]);
     }
     public function remove_session()
@@ -1173,6 +1240,67 @@ class MemberController extends Controller
         $datas = OrderDetails::where(['status' => 1, 'visitor_id' => $loggedInMemberId])->whereNotIn('member_id', $otherMemberIds)->get();
         // return $datas;
         return view('frontEnd.member.messages', compact('conversations', 'datas'));
+    }
+    
+    public function messages_items(Request $request)
+    {
+        $loggedInMemberId = Auth::guard('member')->user()->id;
+        $search = $request->input('search');
+
+        $conversations = Conversation::where(function ($query) use ($loggedInMemberId) {
+            $query->where('member_one_id', $loggedInMemberId)
+                ->orWhere('member_two_id', $loggedInMemberId);
+        })
+            ->where(function ($query) use ($search) {
+                if (!empty($search)) {
+                    if (is_numeric($search)) {
+                        $query->where(function ($q) use ($search) {
+                            $q->whereHas('member_one', function ($q) use ($search) {
+                                $q->where('id', $search); // Search by member_one's id
+                            })
+                                ->orWhereHas('member_two', function ($q) use ($search) {
+                                    $q->where('id', $search); // Search by member_two's id
+                                });
+                        });
+                    }
+                    // If it's not numeric, search by fullName
+                    else {
+                        $query->whereHas('member_one.basicinfo', function ($q) use ($search) {
+                            $q->where('fullName', 'like', "%$search%");
+                        })
+                            ->orWhereHas('member_two.basicinfo', function ($q) use ($search) {
+                                $q->where('fullName', 'like', "%$search%");
+                            });
+                    }
+                }
+            })
+            ->with([
+                'member_one:id,fullName',
+                'member_two:id,fullName',
+                'member_one.basicinfo:id,fullName,member_id',
+                'member_two.basicinfo:id,fullName,member_id',
+                'member_one.memberimage:id,member_id,image_one',
+                'member_two.memberimage:id,member_id,image_one',
+                'lastMessage',
+            ])
+            ->withCount([
+                'messages as unreadMessagesCount' => function ($query) use ($loggedInMemberId) {
+                    $query->where('receiver_id', $loggedInMemberId)
+                        ->where('is_read', 0);
+                }
+            ])
+            ->get();
+
+        // Now you can access $value->member_one->basicinfo->fullName easily
+        // and $value->member_two->memberimage->image_one
+        // and $value->lastMessage->content etc.
+
+        $updatedHtml = view('frontEnd.layouts.ajax.conversationitem', compact('conversations', 'loggedInMemberId'))->render();
+
+        return response()->json([
+            'conversations' => $conversations,
+            'updatedHtml' => $updatedHtml,
+        ]);
     }
 
     public function conversation($id)

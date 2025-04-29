@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('sender_id');
             $table->unsignedBigInteger('receiver_id');
+            $table->unsignedBigInteger('conversation_id');
             $table->text('content');
             $table->boolean('is_read')->default(false);
             $table->boolean('is_deleted')->default(false);

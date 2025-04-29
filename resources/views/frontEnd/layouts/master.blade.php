@@ -48,8 +48,8 @@
     <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/assets/libs/dropify/css/dropify.min.css" />
     <link href="{{ asset('public/backEnd/') }}/assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('public/backEnd/') }}/assets/css/toastr.min.css" />
-    <link rel="stylesheet" href="{{ asset('public/frontEnd/') }}/css/style.css?v=2.0.81" />
-    <link rel="stylesheet" href="{{ asset('public/frontEnd/') }}/css/responsive.css?v=2.0.98" />
+    <link rel="stylesheet" href="{{ asset('public/frontEnd/') }}/css/style.css?v=3.0.10" />
+    <link rel="stylesheet" href="{{ asset('public/frontEnd/') }}/css/responsive.css?v=3.0.10" />
     <meta name="facebook-domain-verification" content="dk4jtrup3sgo73epggz3kbdauuqrhh" />
 
     <!-- Facebook and Google Tags -->
@@ -187,87 +187,87 @@
     <!-- bottom navigation part ends -->
     @yield('content')
     @if (url()->current() != route('home'))
-        <footer class="area-bg-one footer-area">
-            <div class="">
-                {{--
-                <div class="footer-top">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-3  mb-sm-0">
-                                <div class="footer-about">
-                                    <a href="{{ route('home') }}">
-                                        <img src="{{ asset($generalsetting->white_logo) }}" alt="" />
-                                    </a>
-                                    <p>{{ $contact->address }}</p>
-                                    <a href="tel:{{ $contact->hotline }}"
-                                        class="footer-hotlint">{{ $contact->hotline }}</a>
-                                </div>
-                            </div>
+        <!--<footer class="area-bg-one footer-area">-->
+        <!--    <div class="">-->
+        <!--        {{---->
+        <!--        <div class="footer-top">-->
+        <!--            <div class="container">-->
+        <!--                <div class="row">-->
+        <!--                    <div class="col-sm-3  mb-sm-0">-->
+        <!--                        <div class="footer-about">-->
+        <!--                            <a href="{{ route('home') }}">-->
+        <!--                                <img src="{{ asset($generalsetting->white_logo) }}" alt="" />-->
+        <!--                            </a>-->
+        <!--                            <p>{{ $contact->address }}</p>-->
+        <!--                            <a href="tel:{{ $contact->hotline }}"-->
+        <!--                                class="footer-hotlint">{{ $contact->hotline }}</a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
                             <!-- col end -->
-                            <div class="col-sm-3 mb-3 mb-sm-0 col-6">
-                                <div class="footer-menu">
-                                    <ul>
-                                        <li class="title"><a>Bor Bou</a></li>
-                                        @foreach ($footer_left as $leftmenu)
-                                            <li><a
-                                                    href="{{ route('page.show', $leftmenu->slug) }}">{{ $leftmenu->name }}</a>
-                                            </li>
-                                        @endforeach
-                                        <li><a href="{{ route('contact') }}">যোগাযোগ করুন</a></li>
+        <!--                    <div class="col-sm-3 mb-3 mb-sm-0 col-6">-->
+        <!--                        <div class="footer-menu">-->
+        <!--                            <ul>-->
+        <!--                                <li class="title"><a>Bor Bou</a></li>-->
+        <!--                                @foreach ($footer_left as $leftmenu)-->
+        <!--                                    <li><a-->
+        <!--                                            href="{{ route('page.show', $leftmenu->slug) }}">{{ $leftmenu->name }}</a>-->
+        <!--                                    </li>-->
+        <!--                                @endforeach-->
+        <!--                                <li><a href="{{ route('contact') }}">যোগাযোগ করুন</a></li>-->
 
-                                    </ul>
-                                </div>
-                            </div>
+        <!--                            </ul>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
                             <!-- col end -->
-                            <div class="col-sm-3 mb-3 mb-sm-0 col-6">
-                                <div class="footer-menu">
-                                    <ul>
-                                        <li class="title"><a>Links</a></li>
-                                        @foreach ($footer_right as $rightmenu)
-                                            <li><a
-                                                    href="{{ route('page.show', $rightmenu->slug) }}">{{ $rightmenu->name }}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-sm-3 mb-sm-0">
-                                <div class="footer-menu">
-                                    <ul>
-                                        <li class="title stay_conn"><a>Stay Connected</a></li>
-                                    </ul>
-                                    <ul class="social_link">
-                                        @foreach ($socialicons as $value)
-                                            <li class="social_list">
-                                                <a class="mobile-social-link" href="{{ $value->link }}"><i
-                                                        class="{{ $value->icon }}"></i></a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+        <!--                    <div class="col-sm-3 mb-3 mb-sm-0 col-6">-->
+        <!--                        <div class="footer-menu">-->
+        <!--                            <ul>-->
+        <!--                                <li class="title"><a>Links</a></li>-->
+        <!--                                @foreach ($footer_right as $rightmenu)-->
+        <!--                                    <li><a-->
+        <!--                                            href="{{ route('page.show', $rightmenu->slug) }}">{{ $rightmenu->name }}</a>-->
+        <!--                                    </li>-->
+        <!--                                @endforeach-->
+        <!--                            </ul>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    <div class="col-sm-3 mb-sm-0">-->
+        <!--                        <div class="footer-menu">-->
+        <!--                            <ul>-->
+        <!--                                <li class="title stay_conn"><a>Stay Connected</a></li>-->
+        <!--                            </ul>-->
+        <!--                            <ul class="social_link">-->
+        <!--                                @foreach ($socialicons as $value)-->
+        <!--                                    <li class="social_list">-->
+        <!--                                        <a class="mobile-social-link" href="{{ $value->link }}"><i-->
+        <!--                                                class="{{ $value->icon }}"></i></a>-->
+        <!--                                    </li>-->
+        <!--                                @endforeach-->
+        <!--                            </ul>-->
                                     <!--<div class="d_app">-->
                                     <!--    <h2>Download App</h2>-->
                                     <!--    <a href="{{ asset('public/frontEnd') }}/images/BorBou.apk">-->
                                     <!--        <img src="{{ asset('public/frontEnd/images/app-download.png') }}" alt="">-->
                                     <!--    </a>-->
                                     <!--</div>-->
-                                </div>
-                            </div>
+        <!--                        </div>-->
+        <!--                    </div>-->
                             <!-- col end -->
-                        </div>
-                    </div>
-                </div>
-                --}}
-                <div class="footer-bottom">
-                    <div class="">
-                        <div class=" text-center">
-                            <div class="copyright">
-                                <p>Copyright © {{ date('Y') }} Bor Bou | All Rights Reserved</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        --}}-->
+                <!--<div class="footer-bottom">-->
+                <!--    <div class="">-->
+                <!--        <div class=" text-center">-->
+                <!--            <div class="copyright">-->
+                <!--                <p>Copyright © {{ date('Y') }} Bor Bou | All Rights Reserved</p>-->
+                <!--            </div>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
+        <!--    </div>-->
+        <!--</footer>-->
     @endif
 
     <div class="scrolltop" style="">
@@ -279,6 +279,12 @@
     <div class="app-release-btn " style="">
         <a href="{{ route('contact') }}" style="">
             <img src="{{ asset('public/frontEnd/images/headphone-1.png') }}" style="" />
+        </a>
+    </div>
+
+    <div class="message-floating-btn " style="">
+        <a href="{{ route('member.messages') }}">
+            <i class="fa fa-message"></i>
         </a>
     </div>
 
@@ -852,104 +858,6 @@
             }
         });
     </script>
-
-    @if (Session::has('conversation_id'))
-        <script>
-            // message-popup-wrapper
-            function message_toggle(id) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{ route('member.message.reload') }}",
-                    data: {
-                        id: id,
-                    },
-                    dataType: "html",
-                    success: function(data) {
-                        $(".message-popup-wrapper").show();
-                        $("#messageBox").html(data);
-                    },
-                });
-            }
-
-
-            let globalConversationId = null; // 🔥 Store globally
-
-            function updateMessages() {
-                // const conversation_id = $('.message-send').data('id');
-                const conversation_id = globalConversationId || $('.message-send').attr('data-id');
-                if (conversation_id) {
-                    console.log('Updating with ID:', conversation_id);
-                    message_toggle(conversation_id);
-                    message_header(conversation_id);
-                } else {
-                    console.log('No conversation ID found');
-                }
-            }
-        </script>
-    @endif
-    <script>
-        $(document).ready(function() {
-            setInterval(() => {
-                updateMessages();
-            }, 5000);
-            $(document).on('click', '.member-conversation', function(e) {
-                e.preventDefault();
-                const id = $(this).data('id');
-                $.ajax({
-                    url: '{{ route('member.conversation.create') }}',
-                    type: 'POST',
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        id: id,
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            let conversationId = response.conversation.id;
-                            $('.message-popup-wrapper').removeClass('d-none');
-                            $('.message-send').attr('data-id', conversationId);
-                            console.log('New conversation ID set:', conversationId);
-                            globalConversationId = conversationId;
-                            updateMessages();
-                        } else {
-                            alert(response.message || 'Failed to update cart');
-                            if (response.status == 'unlogged') {
-                                window.location.href = "{{ route('member.login') }}";
-                            } else if (response.status == 'unpublished') {
-                                window.location.href = "{{ route('member.member_publish') }}";
-                            }
-                        }
-                    },
-                    error: function() {
-                        alert('An error occurred while updating the cart.');
-                    },
-                });
-            });
-
-
-            // remove session
-            $(document).on('click', '.message-close-button', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: '{{ route('member.remove.session') }}',
-                    type: 'POST',
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            $(".message-popup-inner").hide();
-                        } else {
-                            alert(response.message || 'Failed to update cart');
-                        }
-                    },
-                    error: function() {
-                        alert('An error occurred while updating the cart.');
-                    },
-                });
-            });
-        });
-    </script>
-
 
     @yield('script')
     <!-- Messenger Chat Plugin Code -->

@@ -1,5 +1,6 @@
 @extends('frontEnd.layouts.master')
 @section('title', '')
+
 @section('content')
     @include('frontEnd.layouts.navigation')
     @php
@@ -7,7 +8,12 @@
     @endphp
     <div class="message-page-wrapper">
         <div class="message-page-header">
-            <h3>মেসেজ</h3>
+            <div class="input">
+                <input type="text" class="form-control member-input" />
+            </div>
+            <div class="icon">
+                <i class="fa fa-search"></i>
+            </div>
         </div>
         <div class="message-page-body">
             @if ($conversations->isEmpty())
@@ -17,7 +23,7 @@
                     </div>
                 </div>
             @else
-                <div class="row">
+                <div class="message-page-list">
                     @foreach ($conversations as $key => $value)
                         <a href="{{ route('member.conversation', $value->id) }}">
                             <div class="message-item {{ $value->unreadMessagesCount > 0 ? 'unread' : '' }}">
@@ -106,4 +112,26 @@
         </div>
 
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).on('input', '.member-input', function(e) {
+            var search = $(this).val();
+            e.preventDefault();
+            $.ajax({
+                url: '{{ route('messages.items') }}',
+                type: 'GET',
+                data: {
+                    search: search
+                },
+                success: function(response) {
+                    $(".message-page-body").html(response.updatedHtml);
+                },
+                error: function() {
+                    alert('An error occurred while updating the cart.');
+                },
+            });
+        });
+    </script>
 @endsection

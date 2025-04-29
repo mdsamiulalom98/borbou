@@ -134,6 +134,7 @@ Route::group(['namespace' => 'frontEnd', 'prefix' => 'member', 'middleware' => [
     Route::get('wishlist', [MemberController::class, 'wishlist'])->name('member.wishlist');
     // messages
     Route::get('messages', [MemberController::class, 'message_page'])->name('member.messages');
+    Route::get('messages-items', [MemberController::class, 'messages_items'])->name('messages.items');
     Route::get('conversation/{id}', [MemberController::class, 'conversation'])->name('member.conversation');
     Route::post('create/conversation', [MemberController::class, 'create_conversation'])->name('create.coversation');
 });

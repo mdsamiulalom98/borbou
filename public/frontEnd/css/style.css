@@ -4990,6 +4990,20 @@ section.how_register_sec {
     width: auto;
 }
 
+.message-floating-btn {
+    position: fixed;
+    bottom: 110px;
+    right: 20px;
+}
+
+.message-floating-btn a {
+    display: inline-block;
+}
+.message-floating-btn a i {
+    font-size: 35px;
+    color: #002a3a;
+}
+
 .menu-container {
     display: none;
 }
@@ -5010,22 +5024,34 @@ section.how_register_sec {
     z-index: 9999;
 }
 
+
 .message-popup-inner {
-    width: 400px;
+    max-width: 400px;
     background-color: #fff;
+    margin: 0 auto;
+}
+
+.message-popup-wrapper {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
 }
 
 .message-popup-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 7px;
+    padding: 10px;
     background-color: #ffcc00;
     padding-left: 10px;
     border-radius: 0px 0px 5px 5px;
     position: fixed;
-    top: 0;
+    top: 71px;
     width: 100%;
+    max-width: 400px;
+    height: 62px;
 }
 
 .message-popup-header button {
@@ -5043,8 +5069,8 @@ section.how_register_sec {
 .message-popup-header .left .image {
     overflow: hidden;
     border-radius: 50%;
-    height: 33px;
-    width: 33px;
+    height: 45px;
+    width: 45px;
 }
 
 .message-popup-header .left .image img {
@@ -5082,7 +5108,7 @@ section.how_register_sec {
 }
 
 .message-popup-body::-webkit-scrollbar {
-    width: 6px;
+    width: 0px;
     background-color: #F5F5F5;
 }
 
@@ -5091,13 +5117,14 @@ section.how_register_sec {
 }
 
 .message-popup-control {
-    padding: 6px;
+    padding: 10px;
     padding-left: 18px;
     position: fixed;
-    bottom: 80px;
+    bottom: 0;
     z-index: 1000000;
     background-color: #fff;
     width: 100%;
+    max-width: 400px;
 }
 
 .message-popup-control .inner {
@@ -5127,18 +5154,14 @@ section.how_register_sec {
     height: 100%;
     width: 50px;
     justify-content: center;
-    color: #2a3a00;
-}
-
-.message-popup-control .inner .submit button:hover {
-    background-color: #fff1b9;
+    color: #f00;
 }
 
 li.message-wrapper {
     display: flex;
     column-gap: 10px;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 li.message-wrapper.member {
@@ -5163,15 +5186,20 @@ li.message-wrapper .avatar img {
 }
 
 li.message-wrapper .content p {
-    background-color: #ffcc00;
+    background-color: #002a3a;
     padding: 10px 20px;
     border-radius: 30px;
     font-size: 16px;
     font-weight: 500;
-    color: #002a3a;
+    color: #fff;
     max-width: 250px;
 }
 
+li.message-wrapper.member .content p { 
+     background-color: #ffcc00;
+     color: #002a3a;
+     
+}
 
 .message-popup-wrapper {
     top: 0;
@@ -5186,40 +5214,69 @@ li.message-wrapper .content p {
 }
 
 .message-popup-body {
-    height: calc(100vh - 190px);
+    height: calc(100vh - 120px);
     overflow: auto;
     padding: 5px 18px;
     padding-top: 0;
-    margin-top: 56px;
+    margin-top: 133px;
 }
 
 .message-page-header {
     background-color: #ffcc00;
     margin: 0;
-    padding: 0;
+    padding: 10px;
     border-radius: 0px 0px 5px 5px;
     overflow: hidden;
+    display: flex;
+    width: 100%;
+    padding-left: 18px;
 }
 
-.message-page-header h3 {
+.message-page-header .input {
+    flex: 1 1 auto;
+}
+
+.message-page-header i {
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 50px;
+    justify-content: center;
+    color: #2a3a00;
+}
+
+.message-page-header input {
     font-family: 'Potro Sans Bangla', serif;
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 45px;
+    border-radius: 35px;
+    background-color: #fff;
+    padding-left: 20px;
     margin: 0;
-    padding: 10px;
-    color: #002a3a;
-    font-weight: 600;
-    font-size: 24px;
 }
 
 .message-item {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    border-top: 1px solid;
+    border-bottom: 1px solid;
     border-color: #ddd;
 }
 
 .message-item:hover {
     background-color: #f7f7f7;
+}
+
+.message-page-list a:active {
+    color: #002a3a !important;
+}
+
+.message-page-list a:focus {
+    color: #002a3a !important;
 }
 
 .message-item-wrapper {
@@ -5307,4 +5364,11 @@ li.message-wrapper .content p {
     left: 0;
     opacity: 0;
     width: 80px;
+}
+
+.message-page-wrapper {
+    width: 400px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 71px;
 }
